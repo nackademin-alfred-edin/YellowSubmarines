@@ -18,9 +18,16 @@ public class ArmadaCongifReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
 		System.out.println(contentBuilder.toString());
 		password = contentBuilder.toString();
 		return password;
 		
 	}
 }
+=======
+
+		return contentBuilder.toString();
+	}
+}
+>>>>>>> develop
