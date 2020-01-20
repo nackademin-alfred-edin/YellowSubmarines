@@ -11,8 +11,7 @@ public class Armada {
 	public static Scanner myScanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
-
-
+		
 		String ShipName;
 		String Propulsion;
 		String Carrying;
@@ -53,8 +52,7 @@ public class Armada {
 	public static void updateShipName(int shipID, String newName) {
 
 		try {
-			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
-					"root", "Password!!!");
+			Connection myConn = DriverManager.getConnection(ArmadaCongifReader.usingBufferedReader());
 
 			Statement myStmt = myConn.createStatement();
 			String myQuerry = "update ship set ShipName='" + newName + "' where ShipID = " + shipID;
