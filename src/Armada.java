@@ -17,6 +17,7 @@ public class Armada {
 		String Carrying;
 		String newName;
 		double WeightInTons;
+		String password = "Password!!!";
 
 		int shipID;
 
@@ -29,12 +30,12 @@ public class Armada {
 		System.out.print("Weight in tons: ");
 		WeightInTons = myScanner.nextDouble();
 
-		insertIntoDatabase(ShipName, Propulsion, Carrying, WeightInTons);
+		insertIntoDatabase(password, ShipName, Propulsion, Carrying, WeightInTons);
 
 		System.out.print("Enter Ship ID: ");
 		shipID = myScanner.nextInt();
 
-		printSelectedRow(shipID);
+		printSelectedRow(password, shipID);
 
 		System.out.print("\nEnter Ship ID: ");
 		shipID = myScanner.nextInt();
@@ -43,16 +44,18 @@ public class Armada {
 		System.out.print("\nEnter new name: ");
 		newName = myScanner.nextLine();
 
-		updateShipName(shipID, newName);
-		printSelectedRow(shipID);
+		updateShipName(password, shipID, newName);
+		printSelectedRow(password, shipID);
 
 		myScanner.close();
 	}
 
-	public static void updateShipName(int shipID, String newName) {
+	public static void updateShipName(String password, int shipID, String newName) {
 
 		try {
-			Connection myConn = DriverManager.getConnection(ArmadaCongifReader.usingBufferedReader());
+
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
+					"root", password);
 
 			Statement myStmt = myConn.createStatement();
 			String myQuerry = "update ship set ShipName='" + newName + "' where ShipID = " + shipID;
@@ -65,11 +68,12 @@ public class Armada {
 	}
 
 
-	public static void printSelectedRow(int shipID) {
+	public static void printSelectedRow(String password, int shipID) {
 
 		try {
 			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
-					"root", "Password!!!");
+					"root", password);
+
 
 			Statement myStmt = myConn.createStatement();
 			ResultSet myRs = myStmt.executeQuery("Select * from ship where ShipID =" + shipID);
@@ -90,10 +94,11 @@ public class Armada {
 		}
 	}
 
-	public static void insertIntoDatabase(String ShipName, String Propulsion, String Carrying, double WeightInTons) {
+	public static void insertIntoDatabase(String password, String ShipName, String Propulsion, String Carrying,
+			double WeightInTons) {
 		try {
 			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
-					"root", "Password!!!");
+					"root", password);
 
 			String query = " insert into ship (ShipName, Propulsion, Carrying, WeightInTons)"
 					+ " values (?, ?, ?, ?)";
