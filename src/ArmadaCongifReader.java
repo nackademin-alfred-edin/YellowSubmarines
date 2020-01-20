@@ -15,6 +15,7 @@ public class ArmadaCongifReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		return contentBuilder.toString();
 	}
 

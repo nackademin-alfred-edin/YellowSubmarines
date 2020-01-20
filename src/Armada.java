@@ -52,7 +52,8 @@ public class Armada {
 	public static void updateShipName(int shipID, String newName) {
 
 		try {
-			Connection myConn = DriverManager.getConnection(ArmadaCongifReader.usingBufferedReader());
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
+					"root", ArmadaCongifReader.usingBufferedReader());
 
 			Statement myStmt = myConn.createStatement();
 			String myQuerry = "update ship set ShipName='" + newName + "' where ShipID = " + shipID;
@@ -68,8 +69,9 @@ public class Armada {
 	public static void printSelectedRow(int shipID) {
 
 		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
-					"root", "Password!!!");
+					"root", ArmadaCongifReader.usingBufferedReader());
 
 			Statement myStmt = myConn.createStatement();
 			ResultSet myRs = myStmt.executeQuery("Select * from ship where ShipID =" + shipID);
@@ -85,16 +87,17 @@ public class Armada {
 				System.out.println();
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void insertIntoDatabase(String ShipName, String Propulsion, String Carrying, double WeightInTons) {
 		try {
-			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
-					"root", "Password!!!");
 
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
+					"root", ArmadaCongifReader.usingBufferedReader());
+			
 			String query = " insert into ship (ShipName, Propulsion, Carrying, WeightInTons)"
 					+ " values (?, ?, ?, ?)";
 
