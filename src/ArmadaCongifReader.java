@@ -10,7 +10,7 @@ public class ArmadaCongifReader {
 
 			String sCurrentLine;
 			while ((sCurrentLine = br.readLine()) != null) {
-				contentBuilder.append(sCurrentLine).append("\n");
+				contentBuilder.append(sCurrentLine);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -18,5 +18,4 @@ public class ArmadaCongifReader {
 
 		return contentBuilder.toString();
 	}
-
 }
