@@ -1,7 +1,11 @@
 public class Armada {
 	public static void main(String[] args) {
-
-
+		
+		IDatabaseService db = new DatabaseService();
+		db.readDatabase();
+		
+		Ship oilCargo = new Cargo();
+		oilCargo.dock();
 	}
 }
 
@@ -43,7 +47,7 @@ public class Armada {
 //	}
 //
 //	public static void updateShipName(int shipID, String newName) {
-//
+////
 //		try {
 //			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet", "root",
 //					ArmadaCongifReader.usingBufferedReader());
