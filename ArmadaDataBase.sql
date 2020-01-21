@@ -15,7 +15,7 @@ PRIMARY KEY (ShipID)
 create table ShipLog (
 ShipLogID int not null auto_increment,
 ShipID int not null,
-TypeOFCargo varchar(50),
+TypeOfCargo varchar(50),
 CargoWeight int,
 CurrentCoordinates varchar(7) not null,
 DestinationCoordinates varchar(7),
@@ -90,9 +90,39 @@ insert into ship(ShipName, MaxSpeed, CruisingSpeed, Cargo)
 VALUES("S/S Chris P Bacon", 11, 20, "Livestock");
 
 
-select s.ShipName,s.Cargo, sl.TypeOfCargo, sl.CurrentCoordinates, sl.DestinationCoordinates
+select s.ShipName,s.Cargo, sl.TypeOfCargo, sl.CurrentCoordinates, sl.DestinationCoordinates, s.CruisingSpeed
 from ship s inner join shiplog sl
-on s.ShipID = sl.ShipID
+on s.ShipID = sl.ShipID;
+
+CREATE VIEW uvShipInfo AS
+Select s.ShipName , sl.TypeOfCargo, s.CruisingSpeed, sl.CargoWeight, sl.CurrentCoordinates, sl.Bearing, sl.DestinationCoordinates, sl.NauticalMilage
+from ship s inner join shiplog sl
+on s.ShipId = sl.ShipId;
+
+CREATE VIEW uvshipposition AS
+select s.ShipName, sl.Bearing, sl.CurrentCoordinates
+from ship s inner join shiplog sl
+on s.ShipId = sl.ShipId;
 
 
+select * from uvships;
+select * from ship;
 -- drop database fleet
+
+Create view uvships as
+select s.ShipID, s.ShipName, s.MaxSpeed, s.CruisingSpeed, s.Cargo, sl.ShipLogID, sl.TypeOfCargo, sl.CargoWeight, sl.CurrentCoordinates, sl.DestinationCoordinates, sl.StartCoordinates, sl.CurrentSpeed, sl.NauticalMilage, sl.Bearing
+from ship s inner join shiplog sl
+on s.ShipId = sl.ShipId
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE uspUpdateStartCoordinates(sID int, slID int, coordinates varchar(20))
+BEGIN
+    update shiplog
+    set StartCoordinates = coordinates
+    where ShipLogID = slID and ShipId = sID;
+END$$
+DELIMITER ;
+CALL uspUpdateCurrentCoordinate(1,1, "0,2")
+
+SELECT * FROM shiplog
+

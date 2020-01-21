@@ -8,80 +8,13 @@ public class Armada {
 		
 		IDatabaseService db = new DatabaseService();
 		db.readDatabase();
+		
+		Ship oilCargo = new Cargo();
+		oilCargo.dock();
+		
+		
+
 	}
-<<<<<<< HEAD
-
-	public static void updateShipName(int shipID, String newName) {
-
-		try {
-			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
-					"root", ArmadaCongifReader.usingBufferedReader());
-
-			Statement myStmt = myConn.createStatement();
-			String myQuerry = "update ship set ShipName='" + newName + "' where ShipID = " + shipID;
-			String updString = "update comments set MYUSER='Olle' where id=4";
-			myStmt.executeUpdate(myQuerry);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-
-	public static void printSelectedRow(int shipID) {
-
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
-					"root", ArmadaCongifReader.usingBufferedReader());
-
-			Statement myStmt = myConn.createStatement();
-			ResultSet myRs = myStmt.executeQuery("Select * from ship where ShipID =" + shipID);
-
-
-			while (myRs.next()) {
-
-				System.out.println(myRs.getString("ShipID"));
-				System.out.println(myRs.getString("ShipName"));
-				System.out.println(myRs.getString("Propulsion"));
-				System.out.println(myRs.getString("Carrying"));
-				System.out.println(myRs.getString("WeightInTons"));
-				System.out.println();
-			}
-
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void insertIntoDatabase(String ShipName, String Propulsion, String Carrying, double WeightInTons) {
-		try {
-
-			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
-					"root", ArmadaCongifReader.usingBufferedReader());
-			
-			String query = " insert into ship (ShipName, Propulsion, Carrying, WeightInTons)"
-					+ " values (?, ?, ?, ?)";
-
-			PreparedStatement preparedStmt = myConn.prepareStatement(query);
-			preparedStmt.setString(1, ShipName);
-			preparedStmt.setString(2, Propulsion);
-			preparedStmt.setString(3, Carrying);
-			preparedStmt.setDouble(4, WeightInTons);
-
-			preparedStmt.execute();
-			myConn.close();
-
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-		}
-	}
-
-=======
->>>>>>> e9b9ea95e146ad3c4c260f854c89cf65678128c4
 }
 
 //		String ShipName;
@@ -122,7 +55,7 @@ public class Armada {
 //	}
 //
 //	public static void updateShipName(int shipID, String newName) {
-//
+////
 //		try {
 //			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet", "root",
 //					ArmadaCongifReader.usingBufferedReader());

@@ -5,6 +5,7 @@ import java.io.IOException;
 public class ArmadaCongifReader {
 
 	public static String usingBufferedReader() {
+
 		StringBuilder contentBuilder = new StringBuilder();
 		try (BufferedReader br = new BufferedReader(new FileReader("./config.txt"))) {
 

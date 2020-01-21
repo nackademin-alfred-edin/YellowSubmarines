@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DatabaseService implements IDatabaseService {
 
@@ -25,16 +26,31 @@ public class DatabaseService implements IDatabaseService {
 	}
 
 	@Override
-	public void readDatabase() {
+	public ArrayList<Ship> readDatabase() {
+		ArrayList<Ship> shipList = new ArrayList<Ship>();
 		try {
 			Statement myStmt = getConnection().createStatement();
-			ResultSet myRs = myStmt.executeQuery("select * from ship where ShipID =" + 1);
+			ResultSet myRs = myStmt.executeQuery("select * from uvships");
+
 
 			while (myRs.next()) {
+				Cargo cargo = new Cargo();
+				cargo.shipId = myRs.getInt(1);
+				cargo.name = myRs.getString(2);
+				cargo.maxSpeed = myRs.getInt(3);
+				cargo.cruisingSpeed = myRs.getInt(4);
+				cargo.cargo = myRs.getString(5);
+				cargo.shipLogId = myRs.getInt(6);
+				cargo.typeOfCargo = myRs.getString(7);
+				cargo.cargoWeight = myRs.getInt(8);
+				cargo.currentCoordinates = myRs.getString(9);
+				cargo.destinationCoordinates = myRs.getString(10);
+				cargo.startCoordinates = myRs.getString(11);
+				cargo.currentSpeed = myRs.getInt(12);
+				cargo.natuticMilage = myRs.getInt(13);
+				cargo.bearing = myRs.getString(14);
 
-				System.out.println(myRs.getString(1));
-				System.out.println(myRs.getString(2));
-				System.out.println(myRs.getString(3));
+				shipList.add(cargo);
 
 			}
 
@@ -42,5 +58,6 @@ public class DatabaseService implements IDatabaseService {
 			e.printStackTrace();
 		}
 
+		return shipList;
 	}
 }
