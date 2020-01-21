@@ -5,9 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.sql.*;
+
 
 public class Armada {
-
+	
 	public static Scanner myScanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
@@ -52,24 +54,26 @@ public class Armada {
 	public static void updateShipName(int shipID, String newName) {
 
 		try {
-			Connection myConn = DriverManager.getConnection(ArmadaCongifReader.usingBufferedReader());
+			Class.forName("com.mysql.jdbc.Driver"); 
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC","root", "alfred1997a.");
 
 			Statement myStmt = myConn.createStatement();
 			String myQuerry = "update ship set ShipName='" + newName + "' where ShipID = " + shipID;
 			String updString = "update comments set MYUSER='Olle' where id=4";
 			myStmt.executeUpdate(myQuerry);
 
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
 
 	public static void printSelectedRow(int shipID) {
-
+		
 		try {
-			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
-					"root", "Password!!!");
+			Class.forName("com.mysql.jdbc.Driver"); 
+
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC","root", "alfred1997a.");
 
 			Statement myStmt = myConn.createStatement();
 			ResultSet myRs = myStmt.executeQuery("Select * from ship where ShipID =" + shipID);
@@ -85,15 +89,14 @@ public class Armada {
 				System.out.println();
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void insertIntoDatabase(String ShipName, String Propulsion, String Carrying, double WeightInTons) {
 		try {
-			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet?serverTimezone=UTC",
-					"root", "Password!!!");
+			Connection myConn = DriverManager.getConnection(ArmadaCongifReader.usingBufferedReader());
 
 			String query = " insert into ship (ShipName, Propulsion, Carrying, WeightInTons)"
 					+ " values (?, ?, ?, ?)";
