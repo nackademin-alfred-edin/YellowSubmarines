@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public interface IDatabaseService {
 
@@ -7,7 +8,8 @@ public interface IDatabaseService {
 
 	void updateDatabase();
 
-	void readDatabase();
+	ArrayList<Ship> readDatabase();
+	
 
 	// void deleteDatabase
 

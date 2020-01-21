@@ -6,8 +6,6 @@ public class ArmadaCongifReader {
 
 	public static String usingBufferedReader() {
 
-		String password;
-
 		StringBuilder contentBuilder = new StringBuilder();
 		try (BufferedReader br = new BufferedReader(new FileReader("./config.txt"))) {
 
@@ -18,16 +16,7 @@ public class ArmadaCongifReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-		System.out.println(contentBuilder.toString());
-		password = contentBuilder.toString();
-		return password;
-		
-	}
-}
-=======
 
 		return contentBuilder.toString();
 	}
 }
->>>>>>> develop
