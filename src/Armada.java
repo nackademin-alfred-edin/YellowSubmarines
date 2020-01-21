@@ -1,13 +1,7 @@
-import java.util.Scanner;
-
 public class Armada {
-
-	public static Scanner myScanner = new Scanner(System.in);
-
 	public static void main(String[] args) {
-		
-		IDatabaseService db = new DatabaseService();
-		db.readDatabase();
+
+
 	}
 }
 

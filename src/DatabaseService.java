@@ -43,4 +43,23 @@ public class DatabaseService implements IDatabaseService {
 		}
 
 	}
+
+	@Override
+	public void getShipPosition() {
+
+		try {
+			Statement myStmt = getConnection().createStatement();
+			ResultSet myRs = myStmt.executeQuery("select * from uvshipposition");
+			System.out.println("Ship Name | Bearing | Current Coordinatets\n");
+			while (myRs.next()) {
+				System.out.println(myRs.getString(1) + " | " + myRs.getString(2) + " | " + myRs.getString(2));
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

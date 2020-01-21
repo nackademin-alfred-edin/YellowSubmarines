@@ -9,6 +9,8 @@ public interface IDatabaseService {
 
 	void readDatabase();
 
+	void getShipPosition();
+
 	// void deleteDatabase
 
 }
