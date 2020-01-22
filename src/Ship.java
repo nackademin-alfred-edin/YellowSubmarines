@@ -57,9 +57,6 @@ public abstract class Ship {
 		this.docked = false;
 	}
 
-	public void moveShip() {
-
-	}
 
 	public void updateRoute() {
 
@@ -73,63 +70,69 @@ public abstract class Ship {
 		this.route = Functions.joinSplittedArray(route);
 	}
 
-	public void moveShip(Ship ship, String[][] seaGrid) {
+	public String[][] moveShip(String[][] seaGrid) {
 
-		int movingDistance = (ship.currentSpeed / 10);
-		ArrayList<Integer> currentCoordinates = Functions.convertCoord(ship.currentCoordinates);
-		ArrayList<Integer> destinationCoordinates = Functions.convertCoord(ship.destinationCoordinates);
+		int movingDistance = (this.currentSpeed / 10);
+		int[] currentCoordinates = Functions.convertCoord(this.currentCoordinates);
+		int[] destinationCoordinates = Functions.convertCoord(this.destinationCoordinates);
 
 		// Bearing: S
-		if (currentCoordinates.get(0) < destinationCoordinates.get(0)
-				&& currentCoordinates.get(1) == destinationCoordinates.get(1)) {
+		if (currentCoordinates[0] < destinationCoordinates[0] && currentCoordinates[1] == destinationCoordinates[1]) {
 			this.goSouth(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: N
-		else if (currentCoordinates.get(0) > destinationCoordinates.get(0)
-				&& currentCoordinates.get(1) == destinationCoordinates.get(1)) {
+		else if (currentCoordinates[0] > destinationCoordinates[0]
+				&& currentCoordinates[1] == destinationCoordinates[1]) {
 			this.goNorth(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: E
-		else if (currentCoordinates.get(1) == destinationCoordinates.get(1)
-				&& currentCoordinates.get(0) < destinationCoordinates.get(0)) {
+		else if (currentCoordinates[0] == destinationCoordinates[1]
+				&& currentCoordinates[0] < destinationCoordinates[0]) {
 			this.goEast(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: W
-		else if (currentCoordinates.get(1) == destinationCoordinates.get(1)
-				&& currentCoordinates.get(0) > destinationCoordinates.get(0)) {
+		else if (currentCoordinates[1] == destinationCoordinates[1]
+				&& currentCoordinates[0] > destinationCoordinates[0]) {
 			this.goWest(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: SE
-		else if (currentCoordinates.get(1) < destinationCoordinates.get(1)
-				&& currentCoordinates.get(0) < destinationCoordinates.get(0)) {
+		else if (currentCoordinates[1] < destinationCoordinates[1]
+				&& currentCoordinates[0] < destinationCoordinates[0]) {
 			this.goSouthEast(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: NW
-		else if (currentCoordinates.get(1) > destinationCoordinates.get(1)
-				&& currentCoordinates.get(0) > destinationCoordinates.get(0)) {
+		else if (currentCoordinates[1] > destinationCoordinates[1]
+				&& currentCoordinates[0] > destinationCoordinates[0]) {
 			this.goNorthWest(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: SW
-		else if (currentCoordinates.get(1) < destinationCoordinates.get(1)
-				&& currentCoordinates.get(0) > destinationCoordinates.get(0)) {
+		else if (currentCoordinates[1] < destinationCoordinates[1]
+				&& currentCoordinates[0] > destinationCoordinates[0]) {
 			this.goSouthWest(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: NE
-		else if (currentCoordinates.get(1) > destinationCoordinates.get(1)
-				&& currentCoordinates.get(0) < destinationCoordinates.get(0)) {
+		else if (currentCoordinates[1] > destinationCoordinates[1]
+				&& currentCoordinates[0] < destinationCoordinates[0]) {
 			this.goNorthEast(movingDistance, currentCoordinates, destinationCoordinates);
 		}
+		
+		int[] coord = Functions.convertCoord(this.currentCoordinates);
+		seaGrid[coord[0]][coord[1]] = "X";
+		
+		return seaGrid;
+
 	}
 
-	public void goSouth(int movingDistance, ArrayList<Integer> currentCoordinates,
+	public void goSouth(int movingDistance, int[] currentCoordinates,
 			ArrayList<Integer> destinationCoordinates) {
 
 		for (int i = 0; i < movingDistance; i++) {
 
-			currentCoordinates.set(0, currentCoordinates.get(0) + 1);
+			currentCoordinates[0] = currentCoordinates[0] + 1;
+			
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "S";
-			// Update each step
+			
 
 			if ((currentCoordinates.get(0) == destinationCoordinates.get(0))) {
 

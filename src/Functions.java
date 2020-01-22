@@ -1,12 +1,11 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 public class Functions {
 
 	public static void main(String[] args) {
 
-		createRandomRoute();
 	}
 
 	public static String[] removeFirstIndex(String[] route) {
@@ -26,41 +25,18 @@ public class Functions {
 		return routeString;
 	}
 
+	public static void clearScreen() {
+		// Clears the console screen (for esthetic reasons).
 
-
-
-	public static ArrayList<String> createRandomRoute() {
-
-		Random r = new Random();
-		int randomNumber;
-		int numberOfStops = r.nextInt(5);
-		numberOfStops += 1;
-
-		ArrayList<String> route = new ArrayList<String>(numberOfStops);
-
-		String a = "0,0";
-		String b = "0,99";
-		String c = "99,0";
-		String d = "99,99";
-		String e = "49,49";
-		String[] arr = { a, b, c, d, e };
-		String[] route1 = new String[5];
-
-		for (int i = 0; i < numberOfStops; i++) {
-
-			randomNumber = r.nextInt(4);
-			randomNumber += 1;
-			route1[i] = arr[randomNumber];
-			route.add(arr[i]);
+		try {
+			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-
-		for (int i = 0; i < numberOfStops; i++) {
-
-			System.out.println(route1[i]);
-		}
-
-		return route;
 	}
+
 
 	public static String[][] createGrid() {
 		// Creates a grid and sets the harbours.
@@ -69,7 +45,7 @@ public class Functions {
 
 		for (int i = 0; i < seaGrid.length; i++) {
 			for (int j = 0; j < seaGrid.length; j++) {
-				seaGrid[i][j] = "[ ]";
+				seaGrid[i][j] = " ";
 			}
 		}
 
@@ -82,18 +58,18 @@ public class Functions {
 		return seaGrid;
 	}
 
-	public static ArrayList<Integer> convertCoord(String stringCoordinates) {
+	public static int[] convertCoord(String stringCoordinates) {
 		// Converts string coordinates to array list with integers.
 
-		ArrayList<Integer> coord = new ArrayList<Integer>(2);
+		int[] coord = new int[2];
 		String[] stringCoord = new String[2];
 
 		stringCoord = stringCoordinates.split(",");
+		coord[0] = Integer.parseInt(stringCoord[0]);
+		coord[1] = Integer.parseInt(stringCoord[1]);
 
-		for (int i = 0; i < 2; i++) {
-			coord.add(Integer.parseInt(stringCoord[i]));
-		}
 		return coord;
+
 	}
 
 	public static String convertCoordToString(ArrayList<Integer> intCoord) {

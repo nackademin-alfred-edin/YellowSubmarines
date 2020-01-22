@@ -3,5 +3,6 @@ public class Armada {
 
 		Simulation sim = new Simulation();
 		sim.startSimulation();
+
 	}
 }
