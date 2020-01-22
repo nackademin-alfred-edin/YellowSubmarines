@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Functions {
@@ -65,6 +64,7 @@ public class Functions {
 		String[] stringCoord = new String[2];
 
 		stringCoord = stringCoordinates.split(",");
+
 		coord[0] = Integer.parseInt(stringCoord[0]);
 		coord[1] = Integer.parseInt(stringCoord[1]);
 
@@ -72,11 +72,11 @@ public class Functions {
 
 	}
 
-	public static String convertCoordToString(ArrayList<Integer> intCoord) {
+	public static String convertCoordToString(int[] intCoord) {
 		// Converts int array list values to a string.
 		String stringCoord = "";
 
-		stringCoord = (intCoord.get(0) + "," + intCoord.get(1));
+		stringCoord = (intCoord[0] + "," + intCoord[1]);
 
 		return stringCoord;
 	}
