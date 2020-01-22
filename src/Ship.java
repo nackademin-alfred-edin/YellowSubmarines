@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public abstract class Ship {
 
@@ -73,8 +74,28 @@ public abstract class Ship {
 		this.route = Functions.joinSplittedArray(route);
 	}
 
-	public void goSouth() {
+	public void goSouth(int movingDistance, ArrayList<Integer> currentCoordinates,
+			ArrayList<Integer> destinationCoordinates) {
+		
+		for (int i = 0; i < movingDistance; i++) {
+			if ((currentCoordinates.get(0) == destinationCoordinates.get(0))) {
 
+				this.destinationCoordinates = "";
+
+				// Update
+				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.dock();
+				this.unloadAndLoad();
+				this.updateRoute();
+				this.undock();
+
+				// update database
+				
+				break;
+			} else
+				currentCoordinates.set(0, currentCoordinates.get(0) + 1);
+			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+		}
 	}
 
 	public abstract void unloadAndLoad();

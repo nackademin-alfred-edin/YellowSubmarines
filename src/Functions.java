@@ -37,25 +37,7 @@ public class Functions {
 		if (currentCoordinates.get(0) < destinationCoordinates.get(0)
 				&& currentCoordinates.get(1) == destinationCoordinates.get(1)) {
 
-			for (int i = 0; i < movingDistance; i++) {
-				if ((currentCoordinates.get(0) == destinationCoordinates.get(0))) {
 
-					ship.destinationCoordinates = "";
-
-					// Update
-					ship.currentCoordinates = convertCoordToString(currentCoordinates);
-					ship.dock();
-					ship.unloadAndLoad();
-					ship.updateRoute();
-					ship.undock();
-
-					// update database
-					
-					break;
-				} else
-					currentCoordinates.set(0, currentCoordinates.get(0) + 1);
-				ship.currentCoordinates = convertCoordToString(currentCoordinates);
-			}
 
 
 
