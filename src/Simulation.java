@@ -32,7 +32,10 @@ public class Simulation {
 			} catch (InterruptedException e) {
 				System.out.println(e);
 			}
-			Functions.clearScreen();
+
+			System.out.println(
+					"-----------------------------------------------------------------------------------------------------------------------------");
+//			Functions.clearScreen();
 		}
 	}
 

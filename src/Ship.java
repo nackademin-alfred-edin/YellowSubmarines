@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public abstract class Ship {
 
 	public int shipId;
@@ -124,7 +122,7 @@ public abstract class Ship {
 	}
 
 	public void goSouth(int movingDistance, int[] currentCoordinates,
-			ArrayList<Integer> destinationCoordinates) {
+			int[] destinationCoordinates) {
 
 		for (int i = 0; i < movingDistance; i++) {
 
@@ -134,7 +132,7 @@ public abstract class Ship {
 			this.bearing = "S";
 			
 
-			if ((currentCoordinates.get(0) == destinationCoordinates.get(0))) {
+			if ((currentCoordinates[0] == destinationCoordinates[0])) {
 
 				this.destinationCoordinates = "";
 
@@ -151,16 +149,17 @@ public abstract class Ship {
 		}
 	}
 
-	public void goNorth(int movingDistance, ArrayList<Integer> currentCoordinates,
-			ArrayList<Integer> destinationCoordinates) {
+	public void goNorth(int movingDistance, int[] currentCoordinates,
+			int[] destinationCoordinates) {
 
 		for (int i = 0; i > movingDistance; i++) {
 
-			currentCoordinates.set(0, currentCoordinates.get(0) - 1);
+			currentCoordinates[0] = currentCoordinates[0] - 1;
+
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "N";
 
-			if ((currentCoordinates.get(0) == destinationCoordinates.get(0))) {
+			if ((currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
@@ -174,17 +173,17 @@ public abstract class Ship {
 		}
 	}
 
-	public void goEast(int movingDistance, ArrayList<Integer> currentCoordinates,
+	public void goEast(int movingDistance, int[] currentCoordinates,
 
-			ArrayList<Integer> destinationCoordinates) {
+			int[] destinationCoordinates) {
 
 		for (int i = 0; i > movingDistance; i++) {
 
-			currentCoordinates.set(1, currentCoordinates.get(1) + 1);
+			currentCoordinates[1] = currentCoordinates[1] + 1;
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "E";
 
-			if ((currentCoordinates.get(1) == destinationCoordinates.get(1))) {
+			if ((currentCoordinates[1] == destinationCoordinates[1])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
@@ -197,16 +196,16 @@ public abstract class Ship {
 		}
 	}
 
-	public void goWest(int movingDistance, ArrayList<Integer> currentCoordinates,
-			ArrayList<Integer> destinationCoordinates) {
+	public void goWest(int movingDistance,int[] currentCoordinates,
+			int[] destinationCoordinates) {
 
 		for (int i = 0; i > movingDistance; i++) {
 
-			currentCoordinates.set(1, currentCoordinates.get(1) - 1);
+			currentCoordinates[1] = currentCoordinates[1] - 1;
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "W";
 
-			if ((currentCoordinates.get(1) == destinationCoordinates.get(1))) {
+			if ((currentCoordinates[1] == destinationCoordinates[1])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
@@ -220,17 +219,16 @@ public abstract class Ship {
 
 	}
 	
-	public void goSouthEast(int movingDistance, ArrayList<Integer> currentCoordinates,
-			ArrayList<Integer> destinationCoordinates) {
+	public void goSouthEast(int movingDistance, int[] currentCoordinates, int[] destinationCoordinates) {
 
 		for (int i = 0; i > movingDistance; i++) {
 
-			currentCoordinates.set(0, currentCoordinates.get(0) + 1);
-			currentCoordinates.set(1, currentCoordinates.get(1) + 1);
+			currentCoordinates[0] = currentCoordinates[0] + 1;
+			currentCoordinates[1] = currentCoordinates[1] + 1;
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "SE";
 
-			if ((currentCoordinates.get(1) == destinationCoordinates.get(1))) {
+			if ((currentCoordinates[1] == destinationCoordinates[1])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
@@ -244,17 +242,16 @@ public abstract class Ship {
 
 	}
 	
-	public void goNorthWest(int movingDistance, ArrayList<Integer> currentCoordinates,
-			ArrayList<Integer> destinationCoordinates) {
+	public void goNorthWest(int movingDistance, int[] currentCoordinates, int[] destinationCoordinates) {
 
 		for (int i = 0; i > movingDistance; i++) {
 
-			currentCoordinates.set(0, currentCoordinates.get(0) - 1);
-			currentCoordinates.set(1, currentCoordinates.get(1) - 1);
+			currentCoordinates[0] = currentCoordinates[0] - 1;
+			currentCoordinates[1] = currentCoordinates[1] - 1;
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "NW";
 
-			if ((currentCoordinates.get(1) == destinationCoordinates.get(1))) {
+			if ((currentCoordinates[1] == destinationCoordinates[1])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
@@ -267,17 +264,17 @@ public abstract class Ship {
 		}
 	}
 		
-	public void goNorthEast(int movingDistance, ArrayList<Integer> currentCoordinates,
-			ArrayList<Integer> destinationCoordinates) {
+	public void goNorthEast(int movingDistance, int [] currentCoordinates,
+			int[] destinationCoordinates) {
 
 		for (int i = 0; i > movingDistance; i++) {
+			currentCoordinates[0] = currentCoordinates[0] - 1;
+			currentCoordinates[1] = currentCoordinates[1] + 1;
 
-			currentCoordinates.set(0, currentCoordinates.get(0) - 1);
-			currentCoordinates.set(1, currentCoordinates.get(1) + 1);
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "NE";
 
-			if ((currentCoordinates.get(1) == destinationCoordinates.get(1))) {
+			if ((currentCoordinates[1] == destinationCoordinates[1])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
@@ -290,17 +287,15 @@ public abstract class Ship {
 		}
 }
 
-	public void goSouthWest(int movingDistance, ArrayList<Integer> currentCoordinates,
-			ArrayList<Integer> destinationCoordinates) {
+	public void goSouthWest(int movingDistance, int[] currentCoordinates, int[] destinationCoordinates) {
 
 		for (int i = 0; i > movingDistance; i++) {
-
-			currentCoordinates.set(0, currentCoordinates.get(0) + 1);
-			currentCoordinates.set(1, currentCoordinates.get(1) - 1);
+			currentCoordinates[0] = currentCoordinates[0] + 1;
+			currentCoordinates[1] = currentCoordinates[1] - 1;
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "SW";
 
-			if ((currentCoordinates.get(1) == destinationCoordinates.get(1))) {
+			if ((currentCoordinates[1] == destinationCoordinates[1])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
