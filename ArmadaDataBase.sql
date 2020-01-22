@@ -26,8 +26,6 @@ Route varchar(50),
 PRIMARY KEY (ShipLogID)
 );
 
-
-
 insert into ship(ShipName, MaxCargoWeight, MaxSpeed, CruisingSpeed, Cargo)
 VALUES
 ("HMS Esteban", 100, 40, 10, "Oil"),
@@ -59,19 +57,11 @@ select s.ShipName,s.Cargo, sl.CurrentCoordinates, sl.DestinationCoordinates, s.C
 from ship s inner join shiplog sl
 on s.ShipID = sl.ShipID;
 
--- ShipInfo
--- CREATE VIEW uvShipInfo AS
--- Select s.ShipName , s.CruisingSpeed, sl.CargoWeight, sl.CurrentCoordinates, sl.Bearing, sl.DestinationCoordinates, sl.NauticalMilage
--- from ship s inner join shiplog sl
--- on s.ShipId = sl.ShipId;
-
-
 -- Get all ship postition
 CREATE VIEW uvshipposition AS
 select s.ShipName, sl.Bearing, sl.CurrentCoordinates
 from ship s inner join shiplog sl
 on s.ShipId = sl.ShipId;
-
 
 -- View to  populate java code
 Create view uvships as
@@ -79,32 +69,22 @@ select s.ShipID, s.ShipName, s.MaxCargoWeight, s.MaxSpeed, s.CruisingSpeed, s.Ca
 from ship s inner join shiplog sl
 on s.ShipId = sl.ShipId
 
--- Stored Procedure to update start coordinates
-DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE uspUpdateStartCoordinates(sID int, slID int, coordinates varchar(20))
-BEGIN
-    update shiplog
-    set StartCoordinates = coordinates
-    where ShipLogID = slID and ShipId = sID;
-END$$
-DELIMITER ;
-
 -- Stored Procedure to update current coordinates
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE uspUpdateCurrentCoordinates(sID int, slID int, coordinates varchar(20))
+CREATE DEFINER=`root`@`localhost` PROCEDURE uspUpdateCurrentCoordinatesAndBearing(sID int, slID int, coordinates varchar(20), bearing varchar(2))
 BEGIN
     update shiplog
-    set CurrentCoordinates = coordinates
+    set CurrentCoordinates = coordinates, Bearing = bearing
     where ShipLogID = slID and ShipId = sID;
 END$$
 DELIMITER ;
 
--- Stored Procedure to update destination coordinates
+-- Stored Procedure to update Route coordinates
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE uspUpdateDestinationCoordinates(sID int, slID int, coordinates varchar(20))
+CREATE DEFINER=`root`@`localhost` PROCEDURE uspUpdateRouteDestinationStartCoordinates(sID int, slID int, route varchar(20), dest varchar(20), start varchar(20))
 BEGIN
     update shiplog
-    set DestinationCoordinates = coordinates
+    set Route = route, DestionationCoordinates = destCoord , StartCoordinates = startCoord
     where ShipLogID = slID and ShipId = sID;
 END$$
 DELIMITER ;
