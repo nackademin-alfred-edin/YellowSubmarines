@@ -46,6 +46,7 @@ public abstract class Ship {
 
 	public void dock() {
 		System.out.println("Docking...");
+		this.currentSpeed = 0;
 		this.docked = true;
 
 	}
@@ -53,6 +54,7 @@ public abstract class Ship {
 	public void undock() {
 		System.out.println("Undocking...");
 		this.docked = false;
+		this.currentSpeed = this.cruisingSpeed;
 	}
 
 
@@ -84,39 +86,42 @@ public abstract class Ship {
 			this.goNorth(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: E
-		else if (currentCoordinates[0] == destinationCoordinates[1]
-				&& currentCoordinates[0] < destinationCoordinates[0]) {
+		else if (currentCoordinates[0] == destinationCoordinates[0]
+				&& currentCoordinates[1] < destinationCoordinates[1]) {
 			this.goEast(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: W
-		else if (currentCoordinates[1] == destinationCoordinates[1]
-				&& currentCoordinates[0] > destinationCoordinates[0]) {
+		else if (currentCoordinates[0] == destinationCoordinates[0]
+				&& currentCoordinates[1] > destinationCoordinates[1]) {
 			this.goWest(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: SE
-		else if (currentCoordinates[1] < destinationCoordinates[1]
-				&& currentCoordinates[0] < destinationCoordinates[0]) {
+		else if (currentCoordinates[0] < destinationCoordinates[0]
+				&& currentCoordinates[1] < destinationCoordinates[1]) {
 			this.goSouthEast(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: NW
-		else if (currentCoordinates[1] > destinationCoordinates[1]
-				&& currentCoordinates[0] > destinationCoordinates[0]) {
+		else if (currentCoordinates[0] > destinationCoordinates[0]
+				&& currentCoordinates[1] > destinationCoordinates[1]) {
 			this.goNorthWest(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: SW
-		else if (currentCoordinates[1] < destinationCoordinates[1]
-				&& currentCoordinates[0] > destinationCoordinates[0]) {
+		else if (currentCoordinates[0] < destinationCoordinates[0]
+				&& currentCoordinates[1] > destinationCoordinates[1]) {
 			this.goSouthWest(movingDistance, currentCoordinates, destinationCoordinates);
 
 		} // Bearing: NE
-		else if (currentCoordinates[1] > destinationCoordinates[1]
-				&& currentCoordinates[0] < destinationCoordinates[0]) {
+		else if (currentCoordinates[0] > destinationCoordinates[0]
+				&& currentCoordinates[1] < destinationCoordinates[1]) {
 			this.goNorthEast(movingDistance, currentCoordinates, destinationCoordinates);
 		}
 		
+
 		int[] coord = Functions.convertCoord(this.currentCoordinates);
+
 		seaGrid[coord[0]][coord[1]] = "X";
 		
+
 		return seaGrid;
 
 	}
@@ -124,9 +129,10 @@ public abstract class Ship {
 	public void goSouth(int movingDistance, int[] currentCoordinates,
 			int[] destinationCoordinates) {
 
+		
 		for (int i = 0; i < movingDistance; i++) {
 
-			currentCoordinates[0] = currentCoordinates[0] + 1;
+			currentCoordinates[0] = (currentCoordinates[0]) + 1;
 			
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "S";
