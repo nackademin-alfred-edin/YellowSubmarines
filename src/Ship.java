@@ -73,6 +73,7 @@ public abstract class Ship {
 	public String[][] moveShip(String[][] seaGrid) {
 
 		int movingDistance = (this.currentSpeed / 10);
+		int[] prev = Functions.convertCoord(this.currentCoordinates);
 		int[] currentCoordinates = Functions.convertCoord(this.currentCoordinates);
 		int[] destinationCoordinates = Functions.convertCoord(this.destinationCoordinates);
 
@@ -114,16 +115,14 @@ public abstract class Ship {
 		else if (currentCoordinates[0] > destinationCoordinates[0]
 				&& currentCoordinates[1] < destinationCoordinates[1]) {
 			this.goNorthEast(movingDistance, currentCoordinates, destinationCoordinates);
-		}
-		else {
+		} else {
 			System.out.println("woops");
 		}
-		
 
 		int[] coord = Functions.convertCoord(this.currentCoordinates);
 
-		seaGrid[coord[0]][coord[1]] = "X";
-		
+		seaGrid[prev[0]][prev[1]] = " ";
+		seaGrid[coord[0]][coord[1]] = Integer.toString(this.shipId);
 
 		return seaGrid;
 
