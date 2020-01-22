@@ -45,14 +45,14 @@ public abstract class Ship {
 
 
 	public void dock() {
-		System.out.println("Docking...");
+		System.out.println(this.name + " is docking...   " + this.currentCoordinates);
 		this.currentSpeed = 0;
 		this.docked = true;
 
 	}
 
 	public void undock() {
-		System.out.println("Undocking...");
+		System.out.println(this.name + " is undocking...");
 		this.docked = false;
 		this.currentSpeed = this.cruisingSpeed;
 	}
@@ -60,14 +60,21 @@ public abstract class Ship {
 
 	public void updateRoute() {
 
-		// Set ship Start coordinates to current harbor.
-		this.startCoordinates = this.currentCoordinates;
+		try {
+			// Set ship Start coordinates to current harbor.
+			this.startCoordinates = this.currentCoordinates;
 
-		// Set ship Destination coordinates to the new first index in route.
-		String[] route = Functions.splitString(this.route);
-		route = Functions.removeFirstIndex(route);
-		this.destinationCoordinates = route[0];
-		this.route = Functions.joinSplittedArray(route);
+			// Set ship Destination coordinates to the new first index in route.
+			String[] route = Functions.splitString(this.route);
+			route = Functions.removeFirstIndex(route);
+
+			this.destinationCoordinates = route[0];
+			this.route = Functions.joinSplittedArray(route);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+			this.destinationCoordinates = this.currentCoordinates;
+		}
+
 	}
 
 	public String[][] moveShip(String[][] seaGrid) {
@@ -116,12 +123,12 @@ public abstract class Ship {
 				&& currentCoordinates[1] < destinationCoordinates[1]) {
 			this.goNorthEast(movingDistance, currentCoordinates, destinationCoordinates);
 		} else {
-			System.out.println("woops");
+			System.out.println(this.shipId + " - " + this.name + " has finished it's route.");
 		}
 
 		int[] coord = Functions.convertCoord(this.currentCoordinates);
 
-		seaGrid[prev[0]][prev[1]] = " ";
+		seaGrid[prev[0]][prev[1]] = ".";
 		seaGrid[coord[0]][coord[1]] = Integer.toString(this.shipId);
 
 		return seaGrid;
@@ -132,12 +139,12 @@ public abstract class Ship {
 
 		
 		for (int i = 0; i < movingDistance; i++) {
-
-			currentCoordinates[0] = (currentCoordinates[0]) + 1;
 			
-			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-			this.bearing = "S";
-			
+			if (currentCoordinates[0] < 99) {
+				currentCoordinates[0] = (currentCoordinates[0]) + 1;
+				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.bearing = "S";
+			}
 
 			if ((currentCoordinates[0] == destinationCoordinates[0])) {
 
@@ -159,12 +166,15 @@ public abstract class Ship {
 	public void goNorth(int movingDistance, int[] currentCoordinates,
 			int[] destinationCoordinates) {
 
+
 		for (int i = 0; i < movingDistance; i++) {
 
-			currentCoordinates[0] = currentCoordinates[0] - 1;
+			if (currentCoordinates[0] > 0) {
+				currentCoordinates[0] = currentCoordinates[0] - 1;
 
-			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-			this.bearing = "N";
+				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.bearing = "N";
+			}
 
 			if ((currentCoordinates[0] == destinationCoordinates[0])) {
 
@@ -186,9 +196,11 @@ public abstract class Ship {
 
 		for (int i = 0; i < movingDistance; i++) {
 
+			if (currentCoordinates[1] < 99) {
 			currentCoordinates[1] = currentCoordinates[1] + 1;
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "E";
+			}
 
 			if ((currentCoordinates[1] == destinationCoordinates[1])) {
 
@@ -208,9 +220,11 @@ public abstract class Ship {
 
 		for (int i = 0; i < movingDistance; i++) {
 
+			if (currentCoordinates[1] > 0) {
 			currentCoordinates[1] = currentCoordinates[1] - 1;
 			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
 			this.bearing = "W";
+			}
 
 			if ((currentCoordinates[1] == destinationCoordinates[1])) {
 
@@ -230,12 +244,15 @@ public abstract class Ship {
 
 		for (int i = 0; i < movingDistance; i++) {
 
-			currentCoordinates[0] = currentCoordinates[0] + 1;
-			currentCoordinates[1] = currentCoordinates[1] + 1;
-			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-			this.bearing = "SE";
+			if (currentCoordinates[0] < 99 && currentCoordinates[1] < 99) {
+				currentCoordinates[0] = currentCoordinates[0] + 1;
+				currentCoordinates[1] = currentCoordinates[1] + 1;
+				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.bearing = "SE";
+			}
 
-			if ((currentCoordinates[1] == destinationCoordinates[1])) {
+			if ((currentCoordinates[1] == destinationCoordinates[1])
+					&& (currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
@@ -252,12 +269,15 @@ public abstract class Ship {
 
 		for (int i = 0; i < movingDistance; i++) {
 
-			currentCoordinates[0] = currentCoordinates[0] - 1;
-			currentCoordinates[1] = currentCoordinates[1] - 1;
-			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-			this.bearing = "NW";
+			if (currentCoordinates[0] > 0 && currentCoordinates[1] > 0) {
+				currentCoordinates[0] = currentCoordinates[0] - 1;
+				currentCoordinates[1] = currentCoordinates[1] - 1;
+				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.bearing = "NW";
+			}
 
-			if ((currentCoordinates[1] == destinationCoordinates[1])) {
+			if ((currentCoordinates[1] == destinationCoordinates[1])
+					&& (currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
@@ -274,13 +294,16 @@ public abstract class Ship {
 			int[] destinationCoordinates) {
 
 		for (int i = 0; i < movingDistance; i++) {
-			currentCoordinates[0] = currentCoordinates[0] - 1;
-			currentCoordinates[1] = currentCoordinates[1] + 1;
 
-			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-			this.bearing = "NE";
+			if (currentCoordinates[0] > 0 && currentCoordinates[1] < 99) {
+				currentCoordinates[0] = currentCoordinates[0] - 1;
+				currentCoordinates[1] = currentCoordinates[1] + 1;
+				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.bearing = "NE";
+			}
 
-			if ((currentCoordinates[1] == destinationCoordinates[1])) {
+			if ((currentCoordinates[1] == destinationCoordinates[1])
+					&& (currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
@@ -296,12 +319,16 @@ public abstract class Ship {
 	public void goSouthWest(int movingDistance, int[] currentCoordinates, int[] destinationCoordinates) {
 
 		for (int i = 0; i < movingDistance; i++) {
-			currentCoordinates[0] = currentCoordinates[0] + 1;
-			currentCoordinates[1] = currentCoordinates[1] - 1;
-			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-			this.bearing = "SW";
 
-			if ((currentCoordinates[1] == destinationCoordinates[1])) {
+			if (currentCoordinates[0] < 99 && currentCoordinates[1] > 0) {
+				currentCoordinates[0] = currentCoordinates[0] + 1;
+				currentCoordinates[1] = currentCoordinates[1] - 1;
+				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.bearing = "SW";
+			}
+
+			if ((currentCoordinates[1] == destinationCoordinates[1])
+					&& (currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);

@@ -15,7 +15,8 @@ public class Simulation {
 			
 			for (Ship ship : shipList) {
 				
-				seaGrid = ship.moveShip(seaGrid);
+				if (ship.route.length() > 0)
+					seaGrid = ship.moveShip(seaGrid);
 			}
 
 			for (int i = 0; i < seaGrid.length; i++) {

@@ -44,7 +44,7 @@ public class Functions {
 
 		for (int i = 0; i < seaGrid.length; i++) {
 			for (int j = 0; j < seaGrid.length; j++) {
-				seaGrid[i][j] = " ";
+				seaGrid[i][j] = ".";
 			}
 		}
 
