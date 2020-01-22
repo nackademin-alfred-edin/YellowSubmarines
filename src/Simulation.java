@@ -5,6 +5,7 @@ public class Simulation {
 	private static IDatabaseService db = new DatabaseService();
 
 	public void startSimulation() {
+		db.getShipPosition();
 
 		ArrayList<Ship> shipList = db.readDatabase();
 		String[][] seaGrid = Functions.createGrid();

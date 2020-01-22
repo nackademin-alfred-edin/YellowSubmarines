@@ -27,11 +27,12 @@ public class DatabaseService implements IDatabaseService {
 
 	@Override
 	public ArrayList<Ship> readDatabase() {
+
 		ArrayList<Ship> shipList = new ArrayList<Ship>();
+
 		try {
 			Statement myStmt = getConnection().createStatement();
 			ResultSet myRs = myStmt.executeQuery("select * from uvships");
-
 
 			while (myRs.next()) {
 				if (myRs.getString(6) == "Container") {
@@ -70,16 +71,12 @@ public class DatabaseService implements IDatabaseService {
 					oilCargo.bearing = myRs.getString(13);
 					oilCargo.route = myRs.getString(14);
 					shipList.add(oilCargo);
-
 				}
-
-
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return shipList;
 	}
 
@@ -91,9 +88,22 @@ public class DatabaseService implements IDatabaseService {
 			ResultSet myRs = myStmt.executeQuery("select * from uvshipposition");
 			System.out.println("Ship Name | Bearing | Current Coordinatets\n");
 			while (myRs.next()) {
-				System.out.println(myRs.getString(1) + " | " + myRs.getString(2) + " | " + myRs.getString(2));
-
+				System.out.println(myRs.getString("ShipName") + " | " + myRs.getString("Bearing") + " | "
+						+ myRs.getString("CurrentCoordinates"));
 			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateCurrentCoordinatesAndBearing(int shipID, int shipLogID, String coordinates, String bearing) {
+		try {
+			Statement myStmt = getConnection().createStatement();
+			myStmt.executeQuery(
+					"call uspUpdateCurrentCoordinates(" + shipID + "," + shipLogID + ",'" + coordinates + ",'" + bearing
+							+ "')");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -102,16 +112,18 @@ public class DatabaseService implements IDatabaseService {
 	}
 
 	@Override
-	public void updateCurrentCoordinate(int shipID, int shipLogID, String coordinates) {
+	public void updateRouteDestionationStartCoordinates(int shipID, int shipLogID, String route, String destination,
+			String start) {
+
 		try {
 			Statement myStmt = getConnection().createStatement();
 			myStmt.executeQuery(
-					"call uspUpdateCurrentCoordinates(" + shipID + "," + shipLogID + ",'" + coordinates + "')");
+					"call uspUpdateRouteCoordinates(" + shipID + "," + shipLogID + ",'" + route + "','" + destination
+							+ "', '" + start + "')");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+
 		}
-
 	}
-
 }
