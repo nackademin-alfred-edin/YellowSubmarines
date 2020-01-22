@@ -79,4 +79,17 @@ public class DatabaseService implements IDatabaseService {
 
 	}
 
+	@Override
+	public void updateCurrentCoordinate(int shipID, int shipLogID, String coordinates) {
+		try {
+			Statement myStmt = getConnection().createStatement();
+			myStmt.executeQuery(
+					"call uspUpdateCurrentCoordinates(" + shipID + "," + shipLogID + ",'" + coordinates + "')");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

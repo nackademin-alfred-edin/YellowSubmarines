@@ -15,4 +15,6 @@ public interface IDatabaseService {
 
 	// void deleteDatabase
 
+	void updateCurrentCoordinate(int shipID, int shipLogID, String coordinates);
+
 }

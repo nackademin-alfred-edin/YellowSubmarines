@@ -6,6 +6,7 @@ public class Simulation {
 	public void startSimulation() {
 
 		db.readDatabase();
+		db.updateCurrentCoordinate(1, 1, "88,88");
 
 	}
 
