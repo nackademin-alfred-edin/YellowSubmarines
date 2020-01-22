@@ -34,23 +34,45 @@ public class DatabaseService implements IDatabaseService {
 
 
 			while (myRs.next()) {
-				Cargo cargo = new Cargo();
-				cargo.shipId = myRs.getInt(1);
-				cargo.name = myRs.getString(2);
-				cargo.maxSpeed = myRs.getInt(3);
-				cargo.cruisingSpeed = myRs.getInt(4);
-				cargo.cargo = myRs.getString(5);
-				cargo.shipLogId = myRs.getInt(6);
-				cargo.typeOfCargo = myRs.getString(7);
-				cargo.cargoWeight = myRs.getInt(8);
-				cargo.currentCoordinates = myRs.getString(9);
-				cargo.destinationCoordinates = myRs.getString(10);
-				cargo.startCoordinates = myRs.getString(11);
-				cargo.currentSpeed = myRs.getInt(12);
-				cargo.natuticMilage = myRs.getInt(13);
-				cargo.bearing = myRs.getString(14);
+				if (myRs.getString(6) == "Container") {
 
-				shipList.add(cargo);
+					Ship containerCargo = new Container();
+					containerCargo.shipId = myRs.getInt(1);
+					containerCargo.name = myRs.getString(2);
+					containerCargo.MAX_CARGO_WEIGHT = myRs.getInt(3);
+					containerCargo.maxSpeed = myRs.getInt(4);
+					containerCargo.cruisingSpeed = myRs.getInt(5);
+					containerCargo.cargo = myRs.getString(6);
+					containerCargo.shipLogId = myRs.getInt(7);
+					containerCargo.currentCoordinates = myRs.getString(8);
+					containerCargo.destinationCoordinates = myRs.getString(9);
+					containerCargo.startCoordinates = myRs.getString(10);
+					containerCargo.currentSpeed = myRs.getInt(11);
+					containerCargo.nauticMilage = myRs.getInt(12);
+					containerCargo.bearing = myRs.getString(13);
+					containerCargo.route = myRs.getString(14);
+					shipList.add(containerCargo);
+				} else {
+					
+					Ship oilCargo = new Oil();
+					oilCargo.shipId = myRs.getInt(1);
+					oilCargo.name = myRs.getString(2);
+					oilCargo.MAX_CARGO_WEIGHT = myRs.getInt(3);
+					oilCargo.maxSpeed = myRs.getInt(4);
+					oilCargo.cruisingSpeed = myRs.getInt(5);
+					oilCargo.cargo = myRs.getString(6);
+					oilCargo.shipLogId = myRs.getInt(7);
+					oilCargo.currentCoordinates = myRs.getString(8);
+					oilCargo.destinationCoordinates = myRs.getString(9);
+					oilCargo.startCoordinates = myRs.getString(10);
+					oilCargo.currentSpeed = myRs.getInt(11);
+					oilCargo.nauticMilage = myRs.getInt(12);
+					oilCargo.bearing = myRs.getString(13);
+					oilCargo.route = myRs.getString(14);
+					shipList.add(oilCargo);
+
+				}
+
 
 			}
 
