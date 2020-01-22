@@ -244,7 +244,6 @@ public abstract class Ship {
 				break;
 			}
 		}
-
 	}
 	
 	public void goNorthWest(int movingDistance, int[] currentCoordinates, int[] destinationCoordinates) {

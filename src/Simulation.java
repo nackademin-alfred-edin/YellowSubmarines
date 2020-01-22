@@ -9,7 +9,6 @@ public class Simulation {
 
 		ArrayList<Ship> shipList = db.readDatabase();
 		String[][] seaGrid = Functions.createGrid();
-		ArrayList<Integer> coordinates;
 		boolean run = true;
 		
 		while(run) {
