@@ -15,7 +15,6 @@ public class Simulation {
 
 			coordinates = Functions.convertCoord(ship.currentCoordinates);
 			seaGrid[coordinates.get(0)][coordinates.get(1)] = "x";
-
 		}
 
 			

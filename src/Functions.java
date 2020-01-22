@@ -41,18 +41,16 @@ public class Functions {
 				if ((currentCoordinates.get(0) == destinationCoordinates.get(0))) {
 
 					ship.destinationCoordinates = "";
-					ship.unloadAndLoad();
 
 					// Update
 					ship.currentCoordinates = convertCoordToString(currentCoordinates);
 					ship.dock();
-
-					ship.updateRoute(ship);
+					ship.unloadAndLoad();
+					ship.updateRoute();
+					ship.undock();
 
 					// update database
 					
-					ship.undock();
-
 					break;
 				} else
 					currentCoordinates.set(0, currentCoordinates.get(0) + 1);
