@@ -16,6 +16,7 @@ public class Simulation {
 			seaGrid[coordinates.get(0)][coordinates.get(1)] = "x";
 		}
 
+
 			
 		for (int i = 0; i < seaGrid.length; i++) {
 			for (int j = 0; j < seaGrid.length; j++) {
