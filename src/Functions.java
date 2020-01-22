@@ -8,6 +8,97 @@ public class Functions {
 		createRandomRoute();
 	}
 
+
+	public static void moveShip(Ship ship, String[][] seaGrid) {
+
+		int movingDistance = (ship.currentSpeed / 10);
+		ArrayList<Integer> currentCoordinates = convertCoord(ship.currentCoordinates);
+		ArrayList<Integer> destinationCoordinates = convertCoord(ship.destinationCoordinates);
+
+
+
+		// Bearing: S e.g. [0,0] -> [99,0]
+		if (currentCoordinates.get(0) < destinationCoordinates.get(0)
+				&& currentCoordinates.get(1) == destinationCoordinates.get(1)) {
+
+			for (int i = 0; i < movingDistance; i++) {
+				if ((currentCoordinates.get(0) == destinationCoordinates.get(0))) {
+
+					// Update
+					ship.currentCoordinates = convertCoordToString(currentCoordinates);
+					ship.dock();
+					ship.unloadAndLoad();
+
+					break;
+				} else
+					currentCoordinates.set(0, currentCoordinates.get(0) + 1);
+			}
+
+
+
+		} // Bearing: N e.g. [99,0] -> [0,0]
+		else if (currentCoordinates.get(0) > destinationCoordinates.get(0)
+				&& currentCoordinates.get(1) == destinationCoordinates.get(1)) {
+
+			for (int i = 0; i > movingDistance; i++) {
+				if ((currentCoordinates.get(0) == destinationCoordinates.get(0))) {
+
+					// Update
+					ship.currentCoordinates = convertCoordToString(currentCoordinates);
+					break;
+				}
+
+				else
+					currentCoordinates.set(0, currentCoordinates.get(0) - 1);
+			}
+
+		} // Bearing: E e.g. [0,0] -> [0,99]
+		else if (currentCoordinates.get(1) == destinationCoordinates.get(1)
+				&& currentCoordinates.get(0) < destinationCoordinates.get(0)) {
+
+			for (int i = 0; i > movingDistance; i++) {
+				if ((currentCoordinates.get(1) == destinationCoordinates.get(1)))
+					// Update
+
+					break;
+				else
+					currentCoordinates.set(1, currentCoordinates.get(1) + 1);
+			}
+
+		} // Bearing: W e.g. [0,99] -> [0,0]
+		else if (currentCoordinates.get(1) == destinationCoordinates.get(1)
+				&& currentCoordinates.get(0) > destinationCoordinates.get(0)) {
+
+			for (int i = 0; i > movingDistance; i++) {
+				if ((currentCoordinates.get(1) == destinationCoordinates.get(1)))
+					// Update
+
+					break;
+				else
+					currentCoordinates.set(1, currentCoordinates.get(1) - 1);
+			}
+
+
+		} // Bearing: SE e.g. [0,0] -> [99,99]
+		else if (currentCoordinates.get(1) < destinationCoordinates.get(1)
+				&& currentCoordinates.get(0) < destinationCoordinates.get(0)) {
+
+		} // Bearing: NW e.g. [99,99] -> [0,0]
+		else if (currentCoordinates.get(1) > destinationCoordinates.get(1)
+				&& currentCoordinates.get(0) > destinationCoordinates.get(0)) {
+
+		} // Bearing: SW e.g. [0,99] -> [99,0]
+		else if (currentCoordinates.get(1) < destinationCoordinates.get(1)
+				&& currentCoordinates.get(0) > destinationCoordinates.get(0)) {
+
+		} // Bearing: NE e.g. [99,0] -> [0,99]
+		else if (currentCoordinates.get(1) > destinationCoordinates.get(1)
+				&& currentCoordinates.get(0) < destinationCoordinates.get(0)) {
+		}
+
+	}
+
+
 	public static ArrayList<String> createRandomRoute() {
 
 		Random r = new Random();
@@ -45,6 +136,13 @@ public class Functions {
 		// Creates a grid and sets the harbours.
 
 		String[][] seaGrid = new String[100][100];
+
+		for (int i = 0; i < seaGrid.length; i++) {
+			for (int j = 0; j < seaGrid.length; j++) {
+				seaGrid[i][j] = "[ ]";
+			}
+		}
+
 		seaGrid[0][0] = "A";
 		seaGrid[0][99] = "B";
 		seaGrid[99][0] = "C";
@@ -54,13 +152,13 @@ public class Functions {
 		return seaGrid;
 	}
 
-	public static ArrayList<Integer> convertCord(String x) {
+	public static ArrayList<Integer> convertCoord(String stringCoordinates) {
 		// Converts string coordinates to array list with integers.
 
 		ArrayList<Integer> coord = new ArrayList<Integer>(2);
 		String[] stringCoord = new String[2];
 
-		stringCoord = x.split(",");
+		stringCoord = stringCoordinates.split(",");
 
 		for (int i = 0; i < 2; i++) {
 			coord.add(Integer.parseInt(stringCoord[i]));
@@ -68,7 +166,7 @@ public class Functions {
 		return coord;
 	}
 
-	public static String convertCordToString(ArrayList<Integer> intCoord) {
+	public static String convertCoordToString(ArrayList<Integer> intCoord) {
 		// Converts int array list values to a string.
 		String stringCoord = "";
 
