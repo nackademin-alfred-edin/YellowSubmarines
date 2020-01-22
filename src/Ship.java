@@ -16,11 +16,10 @@ public abstract class Ship {
 	public String route;
 	public int nauticMilage;
 	public boolean docked;
-	public final int MAX_CARGO_WEIGHT;
+	public int MAX_CARGO_WEIGHT;
 	public int cargoWeight;
 
 	public Ship() {
-		this.MAX_CARGO_WEIGHT = 0;
 	}
 
 	public Ship(int shipId, int shipLogId, String name, int maxSpeed, int cruisingSpeed, int currentSpeed,
@@ -28,7 +27,7 @@ public abstract class Ship {
 			String destinationCoordinates, String route, int nauticMilage, boolean docked,
 			int MAX_CARGO_WEIGHT, int cargoWeight) {
 		super();
-		this.MAX_CARGO_WEIGHT = 0;
+		this.MAX_CARGO_WEIGHT = MAX_CARGO_WEIGHT;
 		this.shipId = shipId;
 		this.shipLogId = shipLogId;
 		this.name = name;
