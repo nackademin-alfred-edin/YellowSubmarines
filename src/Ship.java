@@ -123,7 +123,6 @@ public abstract class Ship {
 		
 
 		return seaGrid;
-
 	}
 
 	public void goSouth(int movingDistance, int[] currentCoordinates,
