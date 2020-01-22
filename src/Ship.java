@@ -12,7 +12,7 @@ public abstract class Ship {
 	public String currentCoordinates;
 	public String startCoordinates;
 	public String destinationCoordinates;
-	public String[] route;
+	public String route;
 	public int nauticMilage;
 	public boolean docked;
 	public final int MAX_CARGO_WEIGHT;
@@ -24,7 +24,7 @@ public abstract class Ship {
 
 	public Ship(int shipId, int shipLogId, String name, int maxSpeed, int cruisingSpeed, int currentSpeed,
 			String bearing, String cargo, String currentCoordinates, String startCoordinates,
-			String destinationCoordinates, String[] route, int nauticMilage, boolean docked,
+			String destinationCoordinates, String route, int nauticMilage, boolean docked,
 			int MAX_CARGO_WEIGHT, int cargoWeight) {
 		super();
 		this.MAX_CARGO_WEIGHT = 0;
@@ -49,6 +49,7 @@ public abstract class Ship {
 	public void dock() {
 		System.out.println("Docking...");
 		this.docked = true;
+
 	}
 
 	public void undock() {
@@ -57,6 +58,22 @@ public abstract class Ship {
 	}
 
 	public void moveShip() {
+
+	}
+
+	public void updateRoute() {
+
+		// Set ship Start coordinates to current harbor.
+		this.startCoordinates = this.currentCoordinates;
+
+		// Set ship Destination coordinates to the new first index in route.
+		String[] route = Functions.splitString(this.route);
+		route = Functions.removeFirstIndex(route);
+		this.destinationCoordinates = route[0];
+		this.route = Functions.joinSplittedArray(route);
+	}
+
+	public void goSouth() {
 
 	}
 

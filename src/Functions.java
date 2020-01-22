@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Functions {
@@ -8,13 +9,28 @@ public class Functions {
 		createRandomRoute();
 	}
 
+	public static String[] removeFirstIndex(String[] route) {
+
+		String[] stripedRoute = Arrays.copyOfRange(route, 1, route.length);
+
+		return stripedRoute;
+	}
+
+	public static String[] splitString(String route) {
+		String[] array = route.split("-");
+		return array;
+	}
+
+	public static String joinSplittedArray(String[] route) {
+		String routeString = String.join("-", route);
+		return routeString;
+	}
 
 	public static void moveShip(Ship ship, String[][] seaGrid) {
 
 		int movingDistance = (ship.currentSpeed / 10);
 		ArrayList<Integer> currentCoordinates = convertCoord(ship.currentCoordinates);
 		ArrayList<Integer> destinationCoordinates = convertCoord(ship.destinationCoordinates);
-
 
 
 		// Bearing: S e.g. [0,0] -> [99,0]
@@ -24,14 +40,23 @@ public class Functions {
 			for (int i = 0; i < movingDistance; i++) {
 				if ((currentCoordinates.get(0) == destinationCoordinates.get(0))) {
 
+					ship.destinationCoordinates = "";
+					ship.unloadAndLoad();
+
 					// Update
 					ship.currentCoordinates = convertCoordToString(currentCoordinates);
 					ship.dock();
-					ship.unloadAndLoad();
+
+					ship.updateRoute(ship);
+
+					// update database
+					
+					ship.undock();
 
 					break;
 				} else
 					currentCoordinates.set(0, currentCoordinates.get(0) + 1);
+				ship.currentCoordinates = convertCoordToString(currentCoordinates);
 			}
 
 
