@@ -28,29 +28,29 @@ PRIMARY KEY (ShipLogID)
 
 insert into ship(ShipName, MaxCargoWeight, MaxSpeed, CruisingSpeed, Cargo)
 VALUES
-("HMS Esteban", 100, 40, 10, "Oil"),
-("HMS G.Vasa", 59, 40, 20, "Container"),
+("HMS Esteban", 100, 40, 30, "Oil"),
+("HMS G.Vasa", 59, 40, 30, "Container"),
 ("M/S Sinaloa", 43, 40, 30, "Oil"),
-("HSM Britt-Mari", 56, 40, 10, "Container"),
+("HSM Britt-Mari", 56, 40, 30, "Container"),
 ("HMS Boaty McBoatface", 62, 40, 20, "Oil"),
-("HMS Retail", 76, 40, 10, "Container"),
-("Black Pearl", 234, 40, 40, "Oil"),
+("HMS Retail", 76, 30, 10, "Container"),
+("Black Pearl", 234, 30, 40, "Oil"),
 ("S/S Flying Dutchman", 52, 40, 10, "Container"),
 ("S/S Chris P Bacon", 51, 40, 40, "Oil"),
 ("HMS Vasa", 512, 40, 40, "Container");
 
-insert into shiplog(ShipID, CurrentCoordinates, StartCoordinates, Route)
+insert into shiplog(ShipID, CurrentCoordinates, StartCoordinates, Route, DestinationCoordinates, CurrentSpeed)
 Values
-(1,"0,0", "0,0", "99,99-49,49-0,0"),
-(2,"0,0", "0,0", "49,49-0,99-99,99"),
-(3,"0,99", "0,99", "0,0-99,0-49,49"),
-(4,"0,99","0,99", "49,49-0,99-99,0"),
-(5,"99,0", "99,0", "0,99-0,0-0,99"),
-(6,"99,0", "99,0", "49,49-0,0-0,99"),
-(7,"99,99", "99,99", "99,0-0,0-99,99"),
-(8,"99,99", "99,99", "0,99-99,99-49,49"),
-(9,"49,49", "49,49", "0,0-0,99-99,00"),
-(10,"49,49","49,49", "99,99-99,0-99,99");
+(1,"0,0", "0,0", "99,99-49,49-0,0","99,99", "40"),
+(2,"0,0", "0,0", "49,49-0,99-99,99", "49,49", "40"),
+(3,"0,99", "0,99", "0,0-99,0-49,49", "0,0", "20"),
+(4,"0,99","0,99", "49,49-0,99-99,0", "49,49", "20"),
+(5,"99,0", "99,0", "0,99-0,0-0,99", "0,99", "30"),
+(6,"99,0", "99,0", "49,49-0,0-0,99", "49,49", "40"),
+(7,"99,99", "99,99", "99,0-0,0-99,99", "99,0", "20"),
+(8,"99,99", "99,99", "0,99-99,99-49,49", "0,99", "10"),
+(9,"49,49", "49,49", "0,0-0,99-99,00", "0,0","40"),
+(10,"49,49","49,49", "99,99-99,0-99,99", "99,99","40");
 
 
 select s.ShipName,s.Cargo, sl.CurrentCoordinates, sl.DestinationCoordinates, s.CruisingSpeed
@@ -67,7 +67,7 @@ on s.ShipId = sl.ShipId;
 Create view uvships as
 select s.ShipID, s.ShipName, s.MaxCargoWeight, s.MaxSpeed, s.CruisingSpeed, s.Cargo, sl.ShipLogID, sl.CurrentCoordinates, sl.DestinationCoordinates, sl.StartCoordinates, sl.CurrentSpeed, sl.NauticalMilage, sl.Bearing, sl.Route
 from ship s inner join shiplog sl
-on s.ShipId = sl.ShipId
+on s.ShipId = sl.ShipId;
 
 -- Stored Procedure to update current coordinates
 DELIMITER $$
@@ -89,3 +89,4 @@ BEGIN
 END$$
 DELIMITER ;
 
+select * from uvships
