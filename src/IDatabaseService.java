@@ -20,4 +20,5 @@ public interface IDatabaseService {
 	void updateRouteDestionationStartCoordinates(int shipID, int shipLogID, String route, String destination,
 			String start);
 
+	void updateCurrentRoute(int shipID, int shipLogID, String currentRoute);
 }

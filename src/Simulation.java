@@ -8,7 +8,7 @@ public class Simulation {
 		db.getShipPosition();
 		ArrayList<Ship> shipList = db.readDatabase();
 		String[][] seaGrid = Functions.createGrid();
-		ArrayList<Integer> coordinates;
+//		ArrayList<Integer> coordinates;
 		FleetGUI fleetGUI = new FleetGUI();
 		fleetGUI.setSize(1000, 1000);
 		fleetGUI.setVisible(true);
@@ -27,8 +27,9 @@ public class Simulation {
 					fleetInfoGui.setInfo(ship.moveShip(seaGrid));
 					db.updateCurrentCoordinatesAndBearing(ship.getShipId(), ship.getShipLogId(),
 							ship.getCurrentCoordinates(), ship.getBearing());
-					fleetGUI.restoreColor(ship.previousCoordinates);
+					fleetGUI.restoreColor(ship.getPreviousCoordinates());
 					fleetGUI.changeColor(ship.getShipId(), Functions.convertCoord(ship.getCurrentCoordinates()));
+					db.updateCurrentRoute(ship.getShipId(), ship.getShipLogId(), ship.getCurrentRoute());
 
 				}
 			}

@@ -17,7 +17,8 @@ public abstract class Ship {
 	private boolean docked;
 	private int maxCargoWeight;
 	private int cargoWeight;
-	public int[] previousCoordinates;
+	private int[] previousCoordinates;
+	private String currentRoute;
 
 	public Ship() {
 
@@ -47,6 +48,14 @@ public abstract class Ship {
 		this.previousCoordinates = previousCoordinates;
 	}
 
+
+	public String getCurrentRoute() {
+		return currentRoute;
+	}
+
+	public void setCurrentRoute(String currentRoute) {
+		this.currentRoute = currentRoute;
+	}
 
 	public int[] getPreviousCoordinates() {
 		return previousCoordinates;
@@ -203,18 +212,21 @@ public abstract class Ship {
 
 		try {
 			this.startCoordinates = this.currentCoordinates;
-			String[] route = Functions.splitString(this.route);
+			String[] route = Functions.splitString(this.getCurrentRoute());
 			route = Functions.removeFirstIndex(route);
-
+			if (route.length < 1) {
+				this.setCurrentRoute(this.getRoute());
+			}
 			this.destinationCoordinates = route[0];
-			this.route = Functions.joinSplittedArray(route);
+			this.setCurrentRoute(Functions.joinSplittedArray(route));
 		} catch (ArrayIndexOutOfBoundsException e) {
-
-			this.destinationCoordinates = this.currentCoordinates;
+			// Read original route from database so it
+			System.out.println("update route");
 		}
 	}
 
 	public String moveShip(String[][] seaGrid) {
+
 
 		int movingDistance = (this.currentSpeed / 10);
 		// this.setPreviousCoordinates(Functions.convertCoord(this.currentCoordinates));
@@ -284,8 +296,6 @@ public abstract class Ship {
 			}
 
 			if ((currentCoordinates[0] == destinationCoordinates[0])) {
-
-				this.destinationCoordinates = "";
 
 				// Update object
 				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);

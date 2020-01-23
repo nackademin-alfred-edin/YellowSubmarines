@@ -53,6 +53,7 @@ public class DatabaseService implements IDatabaseService {
 					containerCargo.setNauticMilage(myRs.getInt(12));
 					containerCargo.setBearing(myRs.getString(13));
 					containerCargo.setRoute(myRs.getString(14));
+					containerCargo.setCurrentRoute(myRs.getString(15));
 					shipList.add(containerCargo);
 				} else {
 					
@@ -71,6 +72,7 @@ public class DatabaseService implements IDatabaseService {
 					oilCargo.setNauticMilage(myRs.getInt(12));
 					oilCargo.setBearing(myRs.getString(13));
 					oilCargo.setRoute(myRs.getString(14));
+					oilCargo.setCurrentRoute(myRs.getString(15));
 					shipList.add(oilCargo);
 				}
 			}
@@ -92,6 +94,7 @@ public class DatabaseService implements IDatabaseService {
 				System.out.println(myRs.getString("ShipName") + " | " + myRs.getString("Bearing") + " | "
 						+ myRs.getString("CurrentCoordinates"));
 			}
+			conn.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,6 +125,20 @@ public class DatabaseService implements IDatabaseService {
 			myStmt.executeQuery(
 					"call uspUpdateRouteCoordinates(" + shipID + "," + shipLogID + ",'" + route + "','" + destination
 							+ "', '" + start + "')");
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+	}
+
+	@Override
+	public void updateCurrentRoute(int shipID, int shipLogID, String currentRoute) {
+		try {
+			Statement myStmt = getConnection().createStatement();
+			myStmt.executeQuery("call uspUpdateCurrentRoute(" + shipID + "," + shipLogID + ",'" + currentRoute + "')");
+			conn.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
