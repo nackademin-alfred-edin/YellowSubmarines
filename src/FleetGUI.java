@@ -3,13 +3,16 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class FleetGUI extends JFrame {
 	private JButton[][] f1;
+	private JLabel info;
 
 	public FleetGUI() {
 		super("Armada");
 		setLayout(new GridLayout(100, 100));
+
 		f1 = new JButton[100][100];
 		for (int i = 0; i < 100; i++) {
 			for (int j = 0; j < 100; j++) {
@@ -20,6 +23,7 @@ public class FleetGUI extends JFrame {
 				add(f1[i][j]);
 			}
 		}
+
 	}
 
 	public void changeColor(int shipid, int[] coords) {

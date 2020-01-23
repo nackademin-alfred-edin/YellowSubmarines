@@ -217,7 +217,7 @@ public abstract class Ship {
 		}
 	}
 
-	public String[][] moveShip(String[][] seaGrid) {
+	public String moveShip(String[][] seaGrid) {
 
 		int movingDistance = (this.currentSpeed / 10);
 		// this.setPreviousCoordinates(Functions.convertCoord(this.currentCoordinates));
@@ -265,12 +265,13 @@ public abstract class Ship {
 			this.goNorthEast(movingDistance, currentCoordinates, destinationCoordinates);
 		} else {
 			System.out.println(this.shipId + " - " + this.name + " has finished it's route.");
+			return this.shipId + " - " + this.name + " has finished it's route.";
 		}
 
 		int[] coord = Functions.convertCoord(this.currentCoordinates);
 		seaGrid[coord[0]][coord[1]] = Integer.toString(this.shipId);
 
-		return seaGrid;
+		return "--";
 	}
 
 	public void goSouth(int movingDistance, int[] currentCoordinates,

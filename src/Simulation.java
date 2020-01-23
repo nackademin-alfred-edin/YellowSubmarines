@@ -9,9 +9,13 @@ public class Simulation {
 		ArrayList<Ship> shipList = db.readDatabase();
 		String[][] seaGrid = Functions.createGrid();
 		ArrayList<Integer> coordinates;
-		FleetGUI f = new FleetGUI();
-		f.setSize(1000, 1000);
-		f.setVisible(true);
+		FleetGUI fleetGUI = new FleetGUI();
+		fleetGUI.setSize(1000, 1000);
+		fleetGUI.setVisible(true);
+
+		FleetInfoGUI fleetInfoGui = new FleetInfoGUI();
+		fleetInfoGui.setSize(500, 500);
+		fleetInfoGui.setVisible(true);
 
 		boolean run = true;
 
@@ -20,10 +24,10 @@ public class Simulation {
 			for (Ship ship : shipList) {
 
 				if (ship.getRoute().length() > 0) {
+					fleetInfoGui.setInfo(ship.moveShip(seaGrid));
+					fleetGUI.restoreColor(ship.previousCoordinates);
+					fleetGUI.changeColor(ship.getShipId(), Functions.convertCoord(ship.getCurrentCoordinates()));
 
-					seaGrid = ship.moveShip(seaGrid);
-					f.restoreColor(ship.previousCoordinates);
-					f.changeColor(ship.getShipId(), Functions.convertCoord(ship.getCurrentCoordinates()));
 				}
 			}
 
