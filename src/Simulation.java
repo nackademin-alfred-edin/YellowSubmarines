@@ -25,6 +25,8 @@ public class Simulation {
 
 				if (ship.getRoute().length() > 0) {
 					fleetInfoGui.setInfo(ship.moveShip(seaGrid));
+					db.updateCurrentCoordinatesAndBearing(ship.getShipId(), ship.getShipLogId(),
+							ship.getCurrentCoordinates(), ship.getBearing());
 					fleetGUI.restoreColor(ship.previousCoordinates);
 					fleetGUI.changeColor(ship.getShipId(), Functions.convertCoord(ship.getCurrentCoordinates()));
 
