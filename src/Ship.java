@@ -202,10 +202,7 @@ public abstract class Ship {
 	public void updateRoute() {
 
 		try {
-			// Set ship Start coordinates to current harbor.
 			this.startCoordinates = this.currentCoordinates;
-
-			// Set ship Destination coordinates to the new first index in route.
 			String[] route = Functions.splitString(this.route);
 			route = Functions.removeFirstIndex(route);
 
