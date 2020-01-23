@@ -17,9 +17,10 @@ public class FleetGUI extends JFrame {
 		for (int i = 0; i < 100; i++) {
 			for (int j = 0; j < 100; j++) {
 				f1[i][j] = new JButton();
-				f1[i][j].setText(Integer.toString(i) + "," + Integer.toString(j));
+				f1[i][j].setText("");
 				f1[i][j].setBackground(Color.GREEN.darker());
 				f1[i][j].setOpaque(true);
+//				f1[i][j].setBorderPainted(false);
 				add(f1[i][j]);
 			}
 		}
@@ -31,13 +32,13 @@ public class FleetGUI extends JFrame {
 		if (shipid == 1) {
 			this.f1[coords[0]][coords[1]].setBackground(Color.RED);
 		} else if (shipid == 2) {
-			this.f1[coords[0]][coords[1]].setBackground(Color.BLACK);
+			this.f1[coords[0]][coords[1]].setBackground(Color.BLACK.brighter());
 		} else if (shipid == 3) {
 			this.f1[coords[0]][coords[1]].setBackground(Color.BLUE);
 		} else if (shipid == 4) {
 			this.f1[coords[0]][coords[1]].setBackground(Color.CYAN);
 		} else if (shipid == 5) {
-			this.f1[coords[0]][coords[1]].setBackground(Color.DARK_GRAY);
+			this.f1[coords[0]][coords[1]].setBackground(Color.DARK_GRAY.brighter());
 		} else if (shipid == 6) {
 			this.f1[coords[0]][coords[1]].setBackground(Color.MAGENTA);
 		} else if (shipid == 7) {
