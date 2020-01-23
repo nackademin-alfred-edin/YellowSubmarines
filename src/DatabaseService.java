@@ -41,7 +41,7 @@ public class DatabaseService implements IDatabaseService {
 					containerCargo.setShipId(myRs.getInt(1));
 
 					containerCargo.setName(myRs.getString(2));
-					containerCargo.setMAX_CARGO_WEIGHT(myRs.getInt(3));
+					containerCargo.setMaxCargoWeight(myRs.getInt(3));
 					containerCargo.setMaxSpeed(myRs.getInt(4));
 					containerCargo.setCruisingSpeed(myRs.getInt(5));
 					containerCargo.setCargo(myRs.getString(6));
@@ -59,7 +59,7 @@ public class DatabaseService implements IDatabaseService {
 					Ship oilCargo = new Oil();
 					oilCargo.setShipId(myRs.getInt(1));
 					oilCargo.setName(myRs.getString(2));
-					oilCargo.setMAX_CARGO_WEIGHT(myRs.getInt(3));
+					oilCargo.setMaxCargoWeight(myRs.getInt(3));
 					oilCargo.setMaxSpeed(myRs.getInt(4));
 					oilCargo.setCruisingSpeed(myRs.getInt(5));
 					oilCargo.setCargo(myRs.getString(6));

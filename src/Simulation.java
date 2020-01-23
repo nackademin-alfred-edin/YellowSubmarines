@@ -6,10 +6,8 @@ public class Simulation {
 
 	public void startSimulation() {
 		db.getShipPosition();
-		Functions f1 = new Functions();
 		ArrayList<Ship> shipList = db.readDatabase();
 		String[][] seaGrid = Functions.createGrid();
-		ArrayList<Integer> coordinates;
 		FleetGUI f = new FleetGUI();
 		f.setSize(1000, 1000);
 		f.setVisible(true);
@@ -23,8 +21,8 @@ public class Simulation {
 				if (ship.getRoute().length() > 0)
 					seaGrid = ship.moveShip(seaGrid);
 				seaGrid = ship.moveShip(seaGrid);
-				f.restoreColor(ship.previousCoordinates);
-				f.changeColor(ship.shipId, f1.convertCoord(ship.currentCoordinates));
+				f.changeColor(ship.getShipId(), Functions.convertCoord(ship.getCurrentCoordinates()));
+				f.restoreColor(ship.getPreviousCoordinates());
 			}
 
 			for (int i = 0; i < seaGrid.length; i++) {

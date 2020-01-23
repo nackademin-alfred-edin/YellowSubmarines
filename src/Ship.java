@@ -1,4 +1,3 @@
-i
 public abstract class Ship {
 
 
@@ -16,8 +15,46 @@ public abstract class Ship {
 	private String route;
 	private int nauticMilage;
 	private boolean docked;
-	private int MAX_CARGO_WEIGHT;
+	private int maxCargoWeight;
 	private int cargoWeight;
+	private int[] previousCoordinates;
+
+	public Ship() {
+
+	}
+
+	public Ship(int shipId, int shipLogId, int maxSpeed, int cruisingSpeed, String name, int currentSpeed,
+			String bearing, String cargo, String currentCoordinates, String startCoordinates,
+			String destinationCoordinates, String route, int nauticMilage, boolean docked, int maxCargoWeight,
+			int cargoWeight, int[] previousCoordinates) {
+		super();
+		this.shipId = shipId;
+		this.shipLogId = shipLogId;
+		this.maxSpeed = maxSpeed;
+		this.cruisingSpeed = cruisingSpeed;
+		this.name = name;
+		this.currentSpeed = currentSpeed;
+		this.bearing = bearing;
+		this.cargo = cargo;
+		this.currentCoordinates = currentCoordinates;
+		this.startCoordinates = startCoordinates;
+		this.destinationCoordinates = destinationCoordinates;
+		this.route = route;
+		this.nauticMilage = nauticMilage;
+		this.docked = docked;
+		this.setMaxCargoWeight(maxCargoWeight);
+		this.cargoWeight = cargoWeight;
+		this.previousCoordinates = previousCoordinates;
+	}
+
+
+	public int[] getPreviousCoordinates() {
+		return previousCoordinates;
+	}
+
+	public void setPreviousCoordinates(int[] previousCoordinates) {
+		this.previousCoordinates = previousCoordinates;
+	}
 
 	public int getShipId() {
 		return shipId;
@@ -123,6 +160,14 @@ public abstract class Ship {
 		this.nauticMilage = nauticMilage;
 	}
 
+	public int getMaxCargoWeight() {
+		return maxCargoWeight;
+	}
+
+	public void setMaxCargoWeight(int maxCargoWeight) {
+		this.maxCargoWeight = maxCargoWeight;
+	}
+
 	public boolean isDocked() {
 		return docked;
 	}
@@ -131,29 +176,11 @@ public abstract class Ship {
 		this.docked = docked;
 	}
 
-	public int getMAX_CARGO_WEIGHT() {
-		return MAX_CARGO_WEIGHT;
-	}
-
-	public void setMAX_CARGO_WEIGHT(int mAX_CARGO_WEIGHT) {
-		MAX_CARGO_WEIGHT = mAX_CARGO_WEIGHT;
-	}
-
 	public int getCargoWeight() {
 		return cargoWeight;
 	}
 
 	public void setCargoWeight(int cargoWeight) {
-		this.cargoWeight = cargoWeight;
-	}
-	public int[] previousCoordinates;
-
-	public Ship() {
-	}
-
-		this.route = route;
-		this.nauticMilage = nauticMilage;
-		this.docked = docked;
 		this.cargoWeight = cargoWeight;
 	}
 
@@ -240,7 +267,6 @@ public abstract class Ship {
 		}
 
 		int[] coord = Functions.convertCoord(this.currentCoordinates);
-		seaGrid[prev[0]][prev[1]] = ".";
 		seaGrid[coord[0]][coord[1]] = Integer.toString(this.shipId);
 
 		return seaGrid;
@@ -377,22 +403,6 @@ public abstract class Ship {
 		}
 	}
 	
-	public void goNorthWest(int movingDistance, int[] currentCoordinates, int[] destinationCoordinates) {
-
-		for (int i = 0; i < movingDistance; i++) {
-
-					&& (currentCoordinates[0] == destinationCoordinates[0])) {
-
-				// Update object
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-				this.dock();
-				this.unloadAndLoad();
-				this.updateRoute();
-				this.undock();
-				break;
-			}
-		}
-	}
 	
 	public void goNorthWest(int movingDistance, int[] currentCoordinates, int[] destinationCoordinates) {
 
