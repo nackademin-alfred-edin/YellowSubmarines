@@ -195,8 +195,7 @@ public abstract class Ship {
 
 
 	public void dock() {
-		System.out.println(this.getName() + " is docking...   " + this.getCurrentCoordinates() + " at "
-				+ this.getCurrentCoordinates());
+		System.out.println(this.getName() + " is docking at " + this.getCurrentCoordinates());
 		this.setCurrentSpeed(0);
 		this.setDocked(true);
 	}

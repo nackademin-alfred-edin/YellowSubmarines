@@ -15,11 +15,6 @@ public class Simulation {
 		fleetGUI.setSize(1000, 1000);
 		fleetGUI.setVisible(true);
 
-		// GUI Info GuI
-		FleetInfoGui flg = new FleetInfoGui();
-		flg.setSize(250, 250);
-		flg.setVisible(true);
-
 		// GUI - Text area that prints messages to user.
 
 		boolean run = true;
@@ -49,7 +44,7 @@ public class Simulation {
 
 			// Waits 1 second before .
 			try {
-				Thread.sleep(100);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				System.out.println(e);
 			}

@@ -89,6 +89,12 @@ public class DatabaseService implements IDatabaseService {
 		try {
 			Statement myStmt = getConnection().createStatement();
 			ResultSet myRs = myStmt.executeQuery("select * from uvshipposition");
+
+			for (int i = 0; i < 50; i++) {
+				System.out.println();
+			}
+
+			System.out.println("\n------------------------------------------");
 			System.out.println("Ship Name | Bearing | Current Coordinatets\n");
 			//
 			while (myRs.next()) {
