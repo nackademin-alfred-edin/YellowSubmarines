@@ -29,7 +29,7 @@ public class Simulation {
 					fleetInfoGui.setInfo(ship.moveShip(seaGrid));
 
 					// Updates database.
-					db.updateCurrentCoordinatesAndBearing(ship.getShipId(), ship.getShipLogId(),
+					db.updateCurrentCoordinatesAndBearingAndNauticalMilage(ship.getShipId(), ship.getShipLogId(),
 							ship.getCurrentCoordinates(), ship.getBearing());
 					db.updateCurrentRoute(ship.getShipId(), ship.getShipLogId(), ship.getCurrentRoute());
 

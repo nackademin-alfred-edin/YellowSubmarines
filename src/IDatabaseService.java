@@ -15,7 +15,8 @@ public interface IDatabaseService {
 
 	// void deleteDatabase
 
-	void updateCurrentCoordinatesAndBearing(int shipID, int shipLogID, String coordinates, String bearing);
+	void updateCurrentCoordinatesAndBearingAndNauticalMilage(int shipID, int shipLogID, String coordinates,
+			String bearing);
 
 	void updateRouteDestionationStartCoordinates(int shipID, int shipLogID, String route, String destination,
 			String start);
