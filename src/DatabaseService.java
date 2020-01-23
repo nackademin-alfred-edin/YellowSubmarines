@@ -103,8 +103,9 @@ public class DatabaseService implements IDatabaseService {
 		try {
 			Statement myStmt = getConnection().createStatement();
 			myStmt.executeQuery(
-					"call uspUpdateCurrentCoordinates(" + shipID + "," + shipLogID + ",'" + coordinates + ",'" + bearing
-							+ "')");
+					"call uspUpdateCurrentCoordinatesAndBearing("+ shipID + "," + shipLogID + ",'" + coordinates + "','"+ bearing+ "')");
+
+			conn.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
