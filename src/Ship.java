@@ -3,9 +3,9 @@ public abstract class Ship {
 
 	private int shipId;
 	private int shipLogId;
+	private String name;
 	private int maxSpeed;
 	private int cruisingSpeed;
-	private String name;
 	private int currentSpeed;
 	private String bearing;
 	private String cargo;
