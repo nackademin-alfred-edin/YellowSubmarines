@@ -95,12 +95,14 @@ public class DatabaseService implements IDatabaseService {
 			}
 
 			System.out.println("\n------------------------------------------");
-			System.out.println("Ship Name | Bearing | Current Coordinatets\n");
+			System.out.println("Ship Name | Bearing | Current Coordinatets | Nautical Milage\n");
 			//
 			while (myRs.next()) {
 				System.out.println(myRs.getString("ShipName") + " | " + myRs.getString("Bearing") + " | "
-						+ myRs.getString("CurrentCoordinates"));
+						+ myRs.getString("CurrentCoordinates") + " | " + myRs.getString("NauticalMilage") + " NM");
+
 			}
+			System.out.println();
 			conn.close();
 
 		} catch (SQLException e) {
