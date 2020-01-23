@@ -10,18 +10,15 @@ public class Simulation {
 		ArrayList<Ship> shipList = db.readDatabase();
 		String[][] seaGrid = Functions.createGrid();
 
-		// GUI - The sea grid.
+		// GUI
 		FleetGUI fleetGUI = new FleetGUI();
 		fleetGUI.setSize(1000, 1000);
 		fleetGUI.setVisible(true);
-
-		// GUI - Text area that prints messages to user.
 
 		boolean run = true;
 		while(run) {
 			db.getShipPosition();
 			for (Ship ship : shipList) {
-				// if (ship.getRoute().length() > 0) {
 
 				// Moves all the ships
 				ship.moveShip(seaGrid);
@@ -29,20 +26,15 @@ public class Simulation {
 				// Updates database.
 				db.updateCurrentCoordinatesAndBearingAndNauticalMilage(ship.getShipId(), ship.getShipLogId(),
 						ship.getCurrentCoordinates(), ship.getBearing(), ship.getNauticMilage());
-
 				db.updateCurrentRoute(ship.getShipId(), ship.getShipLogId(), ship.getCurrentRoute(),
 						ship.getDestinationCoordinates());
-
-				// flg.getInfo(db.getShipPosition());
 
 				// Updates GUI colors.
 				fleetGUI.restoreColor(ship.getPreviousCoordinates());
 				fleetGUI.changeColor(ship.getShipId(), Functions.convertCoord(ship.getCurrentCoordinates()));
-
-				// }
 			}
 
-			// Waits 1 second before .
+			// Waits 1 second.
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
