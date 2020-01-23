@@ -105,4 +105,5 @@ class TestArmada {
 		assertEquals(expectedResult1, testShip.getDestinationCoordinates());
 		assertEquals(expectedResult2, testShip.getCurrentRoute());
 	}
+
 }
