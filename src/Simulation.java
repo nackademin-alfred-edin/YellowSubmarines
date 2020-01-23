@@ -7,7 +7,6 @@ public class Simulation {
 	public void startSimulation() {
 
 		// Reads all data from data base and creates the environment.
-		db.getShipPosition();
 		ArrayList<Ship> shipList = db.readDatabase();
 		String[][] seaGrid = Functions.createGrid();
 
@@ -16,10 +15,16 @@ public class Simulation {
 		fleetGUI.setSize(1000, 1000);
 		fleetGUI.setVisible(true);
 
+		// GUI Info GuI
+		FleetInfoGui flg = new FleetInfoGui();
+		flg.setSize(250, 250);
+		flg.setVisible(true);
+
 		// GUI - Text area that prints messages to user.
 
 		boolean run = true;
 		while(run) {
+			db.getShipPosition();
 			for (Ship ship : shipList) {
 				// if (ship.getRoute().length() > 0) {
 
@@ -33,7 +38,7 @@ public class Simulation {
 				db.updateCurrentRoute(ship.getShipId(), ship.getShipLogId(), ship.getCurrentRoute(),
 						ship.getDestinationCoordinates());
 
-				db.getShipPosition();
+				// flg.getInfo(db.getShipPosition());
 
 				// Updates GUI colors.
 				fleetGUI.restoreColor(ship.getPreviousCoordinates());
