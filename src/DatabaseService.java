@@ -35,7 +35,7 @@ public class DatabaseService implements IDatabaseService {
 			ResultSet myRs = myStmt.executeQuery("select * from uvships");
 
 			while (myRs.next()) {
-				if (myRs.getString(6) == "Container") {
+				if (myRs.getString(6).equals("Container")) {
 
 					Ship containerCargo = new Container();
 					containerCargo.setShipId(myRs.getInt(1));
@@ -102,11 +102,14 @@ public class DatabaseService implements IDatabaseService {
 	}
 
 	@Override
-	public void updateCurrentCoordinatesAndBearing(int shipID, int shipLogID, String coordinates, String bearing) {
+	public void updateCurrentCoordinatesAndBearingAndNauticalMilage(int shipID, int shipLogID, String coordinates,
+			String bearing, int nauticalMilage) {
 		try {
 			Statement myStmt = getConnection().createStatement();
 			myStmt.executeQuery(
-					"call uspUpdateCurrentCoordinatesAndBearing("+ shipID + "," + shipLogID + ",'" + coordinates + "','"+ bearing+ "')");
+					"call uspUpdateCurrentCoordinatesAndBearingAndNauticalMilage(" + shipID + "," + shipLogID + ",'"
+							+ coordinates
+							+ "','" + bearing + "'," + nauticalMilage + ")");
 
 			conn.close();
 
@@ -117,13 +120,13 @@ public class DatabaseService implements IDatabaseService {
 	}
 
 	@Override
-	public void updateRouteDestionationStartCoordinates(int shipID, int shipLogID, String route, String destination,
+	public void updateDestinationStartCoordinates(int shipID, int shipLogID, String destination,
 			String start) {
 
 		try {
 			Statement myStmt = getConnection().createStatement();
 			myStmt.executeQuery(
-					"call uspUpdateRouteCoordinates(" + shipID + "," + shipLogID + ",'" + route + "','" + destination
+					"call uspUpdateDestinationStartCoordinates(" + shipID + "," + shipLogID + ",'" + destination
 							+ "', '" + start + "')");
 			conn.close();
 
@@ -134,10 +137,11 @@ public class DatabaseService implements IDatabaseService {
 	}
 
 	@Override
-	public void updateCurrentRoute(int shipID, int shipLogID, String currentRoute) {
+	public void updateCurrentRoute(int shipID, int shipLogID, String currentRoute, String destinationCoordinates) {
 		try {
 			Statement myStmt = getConnection().createStatement();
-			myStmt.executeQuery("call uspUpdateCurrentRoute(" + shipID + "," + shipLogID + ",'" + currentRoute + "')");
+			myStmt.executeQuery("call uspUpdateCurrentRoute(" + shipID + "," + shipLogID + ",'" + currentRoute + "','"
+					+ destinationCoordinates + "')");
 			conn.close();
 
 		} catch (SQLException e) {

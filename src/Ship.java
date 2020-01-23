@@ -209,18 +209,20 @@ public abstract class Ship {
 
 
 	public void updateRoute() {
+		String[] route = Functions.splitString(this.getCurrentRoute());
 
 		try {
 			this.setStartCoordinates(this.getCurrentCoordinates());
-			String[] route = Functions.splitString(this.getCurrentRoute());
+			
 			route = Functions.removeFirstIndex(route);
-			if (route.length < 1) {
-				this.setCurrentRoute(this.getRoute());
-			}
+
 			this.setDestinationCoordinates(route[0]);
 			this.setCurrentRoute(Functions.joinSplittedArray(route));
+			
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("Update route");
+			this.setCurrentRoute(this.getRoute());
+			route = Functions.splitString(this.getCurrentRoute());
+			this.setDestinationCoordinates(route[0]);
 		}
 	}
 
@@ -290,6 +292,7 @@ public abstract class Ship {
 			
 			if (currentCoordinates[0] < 99) {
 				currentCoordinates[0] = (currentCoordinates[0]) + 1;
+				this.setNauticMilage(this.getNauticMilage() + 1);
 				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.setBearing("S");
 			} else
@@ -318,7 +321,7 @@ public abstract class Ship {
 
 			if (currentCoordinates[0] > 0) {
 				currentCoordinates[0] = currentCoordinates[0] - 1;
-
+				this.setNauticMilage(this.getNauticMilage() + 1);
 				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.setBearing("N");
 			} else
@@ -346,6 +349,7 @@ public abstract class Ship {
 
 			if (currentCoordinates[1] < 99) {
 			currentCoordinates[1] = currentCoordinates[1] + 1;
+				this.setNauticMilage(this.getNauticMilage() + 1);
 				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.setBearing("E");
 			} else
@@ -371,6 +375,7 @@ public abstract class Ship {
 
 			if (currentCoordinates[1] > 0) {
 			currentCoordinates[1] = currentCoordinates[1] - 1;
+				this.setNauticMilage(this.getNauticMilage() + 1);
 				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.setBearing("W");
 			}
@@ -396,6 +401,7 @@ public abstract class Ship {
 			if (currentCoordinates[0] < 99 && currentCoordinates[1] < 99) {
 				currentCoordinates[0] = currentCoordinates[0] + 1;
 				currentCoordinates[1] = currentCoordinates[1] + 1;
+				this.setNauticMilage(this.getNauticMilage() + 1);
 				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.setBearing("SE");
 			} else
@@ -423,6 +429,7 @@ public abstract class Ship {
 			if (currentCoordinates[0] > 0 && currentCoordinates[1] > 0) {
 				currentCoordinates[0] = currentCoordinates[0] - 1;
 				currentCoordinates[1] = currentCoordinates[1] - 1;
+				this.setNauticMilage(this.getNauticMilage() + 1);
 				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.setBearing("NW");
 			} else
@@ -450,6 +457,7 @@ public abstract class Ship {
 			if (currentCoordinates[0] > 0 && currentCoordinates[1] < 99) {
 				currentCoordinates[0] = currentCoordinates[0] - 1;
 				currentCoordinates[1] = currentCoordinates[1] + 1;
+				this.setNauticMilage(this.getNauticMilage() + 1);
 				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.setBearing("NE");
 			} else
@@ -477,6 +485,7 @@ public abstract class Ship {
 			if (currentCoordinates[0] < 99 && currentCoordinates[1] > 0) {
 				currentCoordinates[0] = currentCoordinates[0] + 1;
 				currentCoordinates[1] = currentCoordinates[1] - 1;
+				this.setNauticMilage(this.getNauticMilage() + 1);
 				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.setBearing("SW");
 			} else

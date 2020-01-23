@@ -17,32 +17,34 @@ public class Simulation {
 		fleetGUI.setVisible(true);
 
 		// GUI - Text area that prints messages to user.
-		FleetInfoGUI fleetInfoGui = new FleetInfoGUI();
-		fleetInfoGui.setSize(500, 500);
-		fleetInfoGui.setVisible(true);
 
 		boolean run = true;
 		while(run) {
-
 			for (Ship ship : shipList) {
-				if (ship.getRoute().length() > 0) {
-					fleetInfoGui.setInfo(ship.moveShip(seaGrid));
+				// if (ship.getRoute().length() > 0) {
 
-					// Updates database.
-					db.updateCurrentCoordinatesAndBearing(ship.getShipId(), ship.getShipLogId(),
-							ship.getCurrentCoordinates(), ship.getBearing());
-					db.updateCurrentRoute(ship.getShipId(), ship.getShipLogId(), ship.getCurrentRoute());
+				// Moves all the ships
+				ship.moveShip(seaGrid);
 
-					// Updates GUI colors.
-					fleetGUI.restoreColor(ship.getPreviousCoordinates());
-					fleetGUI.changeColor(ship.getShipId(), Functions.convertCoord(ship.getCurrentCoordinates()));
+				// Updates database.
+				db.updateCurrentCoordinatesAndBearingAndNauticalMilage(ship.getShipId(), ship.getShipLogId(),
+						ship.getCurrentCoordinates(), ship.getBearing(), ship.getNauticMilage());
 
-				}
+				db.updateCurrentRoute(ship.getShipId(), ship.getShipLogId(), ship.getCurrentRoute(),
+						ship.getDestinationCoordinates());
+
+				db.getShipPosition();
+
+				// Updates GUI colors.
+				fleetGUI.restoreColor(ship.getPreviousCoordinates());
+				fleetGUI.changeColor(ship.getShipId(), Functions.convertCoord(ship.getCurrentCoordinates()));
+
+				// }
 			}
 
 			// Waits 1 second before .
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				System.out.println(e);
 			}
