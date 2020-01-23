@@ -16,6 +16,7 @@ public abstract class Ship {
 	public boolean docked;
 	public int MAX_CARGO_WEIGHT;
 	public int cargoWeight;
+	public int[] previousCoordinates;
 
 	public Ship() {
 	}
@@ -73,7 +74,7 @@ public abstract class Ship {
 	public String[][] moveShip(String[][] seaGrid) {
 
 		int movingDistance = (this.currentSpeed / 10);
-		int[] prev = Functions.convertCoord(this.currentCoordinates);
+		this.previousCoordinates = Functions.convertCoord(this.currentCoordinates);
 		int[] currentCoordinates = Functions.convertCoord(this.currentCoordinates);
 		int[] destinationCoordinates = Functions.convertCoord(this.destinationCoordinates);
 
@@ -120,8 +121,7 @@ public abstract class Ship {
 		}
 
 		int[] coord = Functions.convertCoord(this.currentCoordinates);
-
-		seaGrid[prev[0]][prev[1]] = " ";
+//		seaGrid[prev[0]][prev[1]] = " ";
 		seaGrid[coord[0]][coord[1]] = Integer.toString(this.shipId);
 
 		return seaGrid;
