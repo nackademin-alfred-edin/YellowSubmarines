@@ -195,44 +195,43 @@ public abstract class Ship {
 
 
 	public void dock() {
-		System.out.println(this.name + " is docking...   " + this.currentCoordinates);
-		this.currentSpeed = 0;
-		this.docked = true;
-
+		System.out.println(this.getName() + " is docking...   " + this.getCurrentCoordinates() + " at "
+				+ this.getCurrentCoordinates());
+		this.setCurrentSpeed(0);
+		this.setDocked(true);
 	}
 
 	public void undock() {
-		System.out.println(this.name + " is undocking...");
-		this.docked = false;
-		this.currentSpeed = this.cruisingSpeed;
+		System.out.println(this.getName() + " is undocking..." + " at " + this.getCurrentCoordinates());
+		this.setDocked(false);
+		this.setCurrentSpeed(this.getCruisingSpeed());
 	}
 
 
 	public void updateRoute() {
 
 		try {
-			this.startCoordinates = this.currentCoordinates;
+			this.setStartCoordinates(this.getCurrentCoordinates());
 			String[] route = Functions.splitString(this.getCurrentRoute());
 			route = Functions.removeFirstIndex(route);
 			if (route.length < 1) {
 				this.setCurrentRoute(this.getRoute());
 			}
-			this.destinationCoordinates = route[0];
+			this.setDestinationCoordinates(route[0]);
 			this.setCurrentRoute(Functions.joinSplittedArray(route));
 		} catch (ArrayIndexOutOfBoundsException e) {
-			// Read original route from database so it
-			System.out.println("update route");
+			System.out.println("Update route");
 		}
 	}
 
 	public String moveShip(String[][] seaGrid) {
 
 
-		int movingDistance = (this.currentSpeed / 10);
+		int movingDistance = (this.getCurrentSpeed() / 10);
 		// this.setPreviousCoordinates(Functions.convertCoord(this.currentCoordinates));
-		this.previousCoordinates = Functions.convertCoord(this.currentCoordinates);
-		int[] currentCoordinates = Functions.convertCoord(this.currentCoordinates);
-		int[] destinationCoordinates = Functions.convertCoord(this.destinationCoordinates);
+		this.setPreviousCoordinates(Functions.convertCoord(this.getCurrentCoordinates()));
+		int[] currentCoordinates = Functions.convertCoord(this.getCurrentCoordinates());
+		int[] destinationCoordinates = Functions.convertCoord(this.getDestinationCoordinates());
 
 		// Bearing: S
 		if (currentCoordinates[0] < destinationCoordinates[0] && currentCoordinates[1] == destinationCoordinates[1]) {
@@ -273,12 +272,12 @@ public abstract class Ship {
 				&& currentCoordinates[1] < destinationCoordinates[1]) {
 			this.goNorthEast(movingDistance, currentCoordinates, destinationCoordinates);
 		} else {
-			System.out.println(this.shipId + " - " + this.name + " has finished it's route.");
-			return this.shipId + " - " + this.name + " has finished it's route.";
+			System.out.println(this.getShipId() + " - " + this.getName() + " has finished it's route.");
+			return this.getShipId() + " - " + this.getName() + " has finished it's route.";
 		}
 
-		int[] coord = Functions.convertCoord(this.currentCoordinates);
-		seaGrid[coord[0]][coord[1]] = Integer.toString(this.shipId);
+		int[] coord = Functions.convertCoord(this.getCurrentCoordinates());
+		seaGrid[coord[0]][coord[1]] = Integer.toString(this.getShipId());
 
 		return "--";
 	}
@@ -291,14 +290,15 @@ public abstract class Ship {
 			
 			if (currentCoordinates[0] < 99) {
 				currentCoordinates[0] = (currentCoordinates[0]) + 1;
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-				this.bearing = "S";
-			}
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
+				this.setBearing("S");
+			} else
+				break;
 
 			if ((currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.dock();
 				this.unloadAndLoad();
 				this.updateRoute();
@@ -319,14 +319,15 @@ public abstract class Ship {
 			if (currentCoordinates[0] > 0) {
 				currentCoordinates[0] = currentCoordinates[0] - 1;
 
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-				this.bearing = "N";
-			}
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
+				this.setBearing("N");
+			} else
+				break;
 
 			if ((currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.dock();
 				this.unloadAndLoad();
 				this.updateRoute();
@@ -345,14 +346,15 @@ public abstract class Ship {
 
 			if (currentCoordinates[1] < 99) {
 			currentCoordinates[1] = currentCoordinates[1] + 1;
-			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-			this.bearing = "E";
-			}
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
+				this.setBearing("E");
+			} else
+				break;
 
 			if ((currentCoordinates[1] == destinationCoordinates[1])) {
 
 				// Update object
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.dock();
 				this.unloadAndLoad();
 				this.updateRoute();
@@ -376,7 +378,7 @@ public abstract class Ship {
 			if ((currentCoordinates[1] == destinationCoordinates[1])) {
 
 				// Update object
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.dock();
 				this.unloadAndLoad();
 				this.updateRoute();
@@ -394,15 +396,16 @@ public abstract class Ship {
 			if (currentCoordinates[0] < 99 && currentCoordinates[1] < 99) {
 				currentCoordinates[0] = currentCoordinates[0] + 1;
 				currentCoordinates[1] = currentCoordinates[1] + 1;
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-				this.bearing = "SE";
-			}
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
+				this.setBearing("SE");
+			} else
+				break;
 
 			if ((currentCoordinates[1] == destinationCoordinates[1])
 					&& (currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.dock();
 				this.unloadAndLoad();
 				this.updateRoute();
@@ -420,15 +423,16 @@ public abstract class Ship {
 			if (currentCoordinates[0] > 0 && currentCoordinates[1] > 0) {
 				currentCoordinates[0] = currentCoordinates[0] - 1;
 				currentCoordinates[1] = currentCoordinates[1] - 1;
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-				this.bearing = "NW";
-			}
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
+				this.setBearing("NW");
+			} else
+				break;
 
 			if ((currentCoordinates[1] == destinationCoordinates[1])
 					&& (currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.dock();
 				this.unloadAndLoad();
 				this.updateRoute();
@@ -446,15 +450,16 @@ public abstract class Ship {
 			if (currentCoordinates[0] > 0 && currentCoordinates[1] < 99) {
 				currentCoordinates[0] = currentCoordinates[0] - 1;
 				currentCoordinates[1] = currentCoordinates[1] + 1;
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-				this.bearing = "NE";
-			}
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
+				this.setBearing("NE");
+			} else
+				break;
 
 			if ((currentCoordinates[1] == destinationCoordinates[1])
 					&& (currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.dock();
 				this.unloadAndLoad();
 				this.updateRoute();
@@ -468,18 +473,20 @@ public abstract class Ship {
 
 		for (int i = 0; i < movingDistance; i++) {
 
+			// This if-statement ensures that the object don't go out of the grid.
 			if (currentCoordinates[0] < 99 && currentCoordinates[1] > 0) {
 				currentCoordinates[0] = currentCoordinates[0] + 1;
 				currentCoordinates[1] = currentCoordinates[1] - 1;
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-				this.bearing = "SW";
-			}
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
+				this.setBearing("SW");
+			} else
+				break;
 
 			if ((currentCoordinates[1] == destinationCoordinates[1])
 					&& (currentCoordinates[0] == destinationCoordinates[0])) {
 
 				// Update object
-				this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
 				this.dock();
 				this.unloadAndLoad();
 				this.updateRoute();
