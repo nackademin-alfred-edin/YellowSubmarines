@@ -38,38 +38,39 @@ public class DatabaseService implements IDatabaseService {
 				if (myRs.getString(6) == "Container") {
 
 					Ship containerCargo = new Container();
-					containerCargo.shipId = myRs.getInt(1);
-					containerCargo.name = myRs.getString(2);
-					containerCargo.MAX_CARGO_WEIGHT = myRs.getInt(3);
-					containerCargo.maxSpeed = myRs.getInt(4);
-					containerCargo.cruisingSpeed = myRs.getInt(5);
-					containerCargo.cargo = myRs.getString(6);
-					containerCargo.shipLogId = myRs.getInt(7);
-					containerCargo.currentCoordinates = myRs.getString(8);
-					containerCargo.destinationCoordinates = myRs.getString(9);
-					containerCargo.startCoordinates = myRs.getString(10);
-					containerCargo.currentSpeed = myRs.getInt(11);
-					containerCargo.nauticMilage = myRs.getInt(12);
-					containerCargo.bearing = myRs.getString(13);
-					containerCargo.route = myRs.getString(14);
+					containerCargo.setShipId(myRs.getInt(1));
+
+					containerCargo.setName(myRs.getString(2));
+					containerCargo.setMAX_CARGO_WEIGHT(myRs.getInt(3));
+					containerCargo.setMaxSpeed(myRs.getInt(4));
+					containerCargo.setCruisingSpeed(myRs.getInt(5));
+					containerCargo.setCargo(myRs.getString(6));
+					containerCargo.setShipLogId(myRs.getInt(7));
+					containerCargo.setCurrentCoordinates(myRs.getString(8));
+					containerCargo.setDestinationCoordinates(myRs.getString(9));
+					containerCargo.setStartCoordinates(myRs.getString(10));
+					containerCargo.setCurrentSpeed(myRs.getInt(11));
+					containerCargo.setNauticMilage(myRs.getInt(12));
+					containerCargo.setBearing(myRs.getString(13));
+					containerCargo.setRoute(myRs.getString(14));
 					shipList.add(containerCargo);
 				} else {
 					
 					Ship oilCargo = new Oil();
-					oilCargo.shipId = myRs.getInt(1);
-					oilCargo.name = myRs.getString(2);
-					oilCargo.MAX_CARGO_WEIGHT = myRs.getInt(3);
-					oilCargo.maxSpeed = myRs.getInt(4);
-					oilCargo.cruisingSpeed = myRs.getInt(5);
-					oilCargo.cargo = myRs.getString(6);
-					oilCargo.shipLogId = myRs.getInt(7);
-					oilCargo.currentCoordinates = myRs.getString(8);
-					oilCargo.destinationCoordinates = myRs.getString(9);
-					oilCargo.startCoordinates = myRs.getString(10);
-					oilCargo.currentSpeed = myRs.getInt(11);
-					oilCargo.nauticMilage = myRs.getInt(12);
-					oilCargo.bearing = myRs.getString(13);
-					oilCargo.route = myRs.getString(14);
+					oilCargo.setShipId(myRs.getInt(1));
+					oilCargo.setName(myRs.getString(2));
+					oilCargo.setMAX_CARGO_WEIGHT(myRs.getInt(3));
+					oilCargo.setMaxSpeed(myRs.getInt(4));
+					oilCargo.setCruisingSpeed(myRs.getInt(5));
+					oilCargo.setCargo(myRs.getString(6));
+					oilCargo.setShipLogId(myRs.getInt(7));
+					oilCargo.setCurrentCoordinates(myRs.getString(8));
+					oilCargo.setDestinationCoordinates(myRs.getString(9));
+					oilCargo.setStartCoordinates(myRs.getString(10));
+					oilCargo.setCurrentSpeed(myRs.getInt(11));
+					oilCargo.setNauticMilage(myRs.getInt(12));
+					oilCargo.setBearing(myRs.getString(13));
+					oilCargo.setRoute(myRs.getString(14));
 					shipList.add(oilCargo);
 				}
 			}

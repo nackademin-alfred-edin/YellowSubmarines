@@ -16,19 +16,15 @@ public class Oil extends Ship {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	@Override
 	public void unloadAndLoad() {
 		
-		if (this.cargoWeight == 0) {
+		if (this.getCargoWeight() == 0) {
 			System.out.println("Loading ship");
-			this.cargoWeight = this.MAX_CARGO_WEIGHT;
+			this.setCargoWeight(this.getMAX_CARGO_WEIGHT());
 		} else {
 			System.out.println("Unloading ship");
-			this.cargoWeight = this.MAX_CARGO_WEIGHT;
+			this.setCargoWeight(0);
 		}
-		
-		
 	}
-
 }

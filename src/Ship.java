@@ -1,21 +1,149 @@
 public abstract class Ship {
 
-	public int shipId;
-	public int shipLogId;
-	public String name;
-	public int maxSpeed;
-	public int cruisingSpeed;
-	public int currentSpeed;
-	public String bearing;
-	public String cargo;
-	public String currentCoordinates;
-	public String startCoordinates;
-	public String destinationCoordinates;
-	public String route;
-	public int nauticMilage;
-	public boolean docked;
-	public int MAX_CARGO_WEIGHT;
-	public int cargoWeight;
+	private int shipId;
+	private int shipLogId;
+	private int maxSpeed;
+	private int cruisingSpeed;
+	private String name;
+	private int currentSpeed;
+	private String bearing;
+	private String cargo;
+	private String currentCoordinates;
+	private String startCoordinates;
+	private String destinationCoordinates;
+	private String route;
+	private int nauticMilage;
+	private boolean docked;
+	private int MAX_CARGO_WEIGHT;
+	private int cargoWeight;
+
+	public int getShipId() {
+		return shipId;
+	}
+
+	public void setShipId(int shipId) {
+		this.shipId = shipId;
+	}
+
+	public int getShipLogId() {
+		return shipLogId;
+	}
+
+	public void setShipLogId(int shipLogId) {
+		this.shipLogId = shipLogId;
+	}
+
+	public int getMaxSpeed() {
+		return maxSpeed;
+	}
+
+	public void setMaxSpeed(int maxSpeed) {
+		this.maxSpeed = maxSpeed;
+	}
+
+	public int getCruisingSpeed() {
+		return cruisingSpeed;
+	}
+
+	public void setCruisingSpeed(int cruisingSpeed) {
+		this.cruisingSpeed = cruisingSpeed;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getCurrentSpeed() {
+		return currentSpeed;
+	}
+
+	public void setCurrentSpeed(int currentSpeed) {
+		this.currentSpeed = currentSpeed;
+	}
+
+	public String getBearing() {
+		return bearing;
+	}
+
+	public void setBearing(String bearing) {
+		this.bearing = bearing;
+	}
+
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+
+	public String getCurrentCoordinates() {
+		return currentCoordinates;
+	}
+
+	public void setCurrentCoordinates(String currentCoordinates) {
+		this.currentCoordinates = currentCoordinates;
+	}
+
+	public String getStartCoordinates() {
+		return startCoordinates;
+	}
+
+	public void setStartCoordinates(String startCoordinates) {
+		this.startCoordinates = startCoordinates;
+	}
+
+	public String getDestinationCoordinates() {
+		return destinationCoordinates;
+	}
+
+	public void setDestinationCoordinates(String destinationCoordinates) {
+		this.destinationCoordinates = destinationCoordinates;
+	}
+
+	public String getRoute() {
+		return route;
+	}
+
+	public void setRoute(String route) {
+		this.route = route;
+	}
+
+	public int getNauticMilage() {
+		return nauticMilage;
+	}
+
+	public void setNauticMilage(int nauticMilage) {
+		this.nauticMilage = nauticMilage;
+	}
+
+	public boolean isDocked() {
+		return docked;
+	}
+
+	public void setDocked(boolean docked) {
+		this.docked = docked;
+	}
+
+	public int getMAX_CARGO_WEIGHT() {
+		return MAX_CARGO_WEIGHT;
+	}
+
+	public void setMAX_CARGO_WEIGHT(int mAX_CARGO_WEIGHT) {
+		MAX_CARGO_WEIGHT = mAX_CARGO_WEIGHT;
+	}
+
+	public int getCargoWeight() {
+		return cargoWeight;
+	}
+
+	public void setCargoWeight(int cargoWeight) {
+		this.cargoWeight = cargoWeight;
+	}
 
 	public Ship() {
 	}
@@ -74,7 +202,6 @@ public abstract class Ship {
 
 			this.destinationCoordinates = this.currentCoordinates;
 		}
-
 	}
 
 	public String[][] moveShip(String[][] seaGrid) {
@@ -222,8 +349,8 @@ public abstract class Ship {
 
 			if (currentCoordinates[1] > 0) {
 			currentCoordinates[1] = currentCoordinates[1] - 1;
-			this.currentCoordinates = Functions.convertCoordToString(currentCoordinates);
-			this.bearing = "W";
+				this.setCurrentCoordinates(Functions.convertCoordToString(currentCoordinates));
+				this.setBearing("W");
 			}
 
 			if ((currentCoordinates[1] == destinationCoordinates[1])) {
