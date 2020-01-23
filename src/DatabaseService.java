@@ -10,6 +10,7 @@ public class DatabaseService implements IDatabaseService {
 	private static Connection conn;
 
 	private static Connection getConnection() {
+		// Creates a database connection
 
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fleet", "root",
@@ -22,11 +23,9 @@ public class DatabaseService implements IDatabaseService {
 	}
 
 	@Override
-	public void updateDatabase() {
-	}
-
-	@Override
 	public ArrayList<Ship> readDatabase() {
+		// Reads from database and maps them to appropriate class, then returns an
+		// ArrayList
 
 		ArrayList<Ship> shipList = new ArrayList<Ship>();
 
@@ -85,6 +84,7 @@ public class DatabaseService implements IDatabaseService {
 
 	@Override
 	public void getShipPosition() {
+		// Calls a view from database and prints the result
 
 		try {
 			Statement myStmt = getConnection().createStatement();
@@ -111,6 +111,8 @@ public class DatabaseService implements IDatabaseService {
 	@Override
 	public void updateCurrentCoordinatesAndBearingAndNauticalMilage(int shipID, int shipLogID, String coordinates,
 			String bearing, int nauticalMilage) {
+		// Updates current coordinate, bearing and nautical milage in the database
+
 		try {
 			Statement myStmt = getConnection().createStatement();
 			myStmt.executeQuery(
@@ -127,24 +129,9 @@ public class DatabaseService implements IDatabaseService {
 	}
 
 	@Override
-	public void updateDestinationStartCoordinates(int shipID, int shipLogID, String destination,
-			String start) {
-
-		try {
-			Statement myStmt = getConnection().createStatement();
-			myStmt.executeQuery(
-					"call uspUpdateDestinationStartCoordinates(" + shipID + "," + shipLogID + ",'" + destination
-							+ "', '" + start + "')");
-			conn.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-
-		}
-	}
-
-	@Override
 	public void updateCurrentRoute(int shipID, int shipLogID, String currentRoute, String destinationCoordinates) {
+		// Updates current route and destination coordinate in database
+
 		try {
 			Statement myStmt = getConnection().createStatement();
 			myStmt.executeQuery("call uspUpdateCurrentRoute(" + shipID + "," + shipLogID + ",'" + currentRoute + "','"
